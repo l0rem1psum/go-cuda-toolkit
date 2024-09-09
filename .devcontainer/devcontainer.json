@@ -1,5 +1,5 @@
 {
-    "name": "go-cuda",
+    "name": "go-cuda-toolkit",
     "build": {
 		"dockerfile": "Dockerfile",
 		"args": {
