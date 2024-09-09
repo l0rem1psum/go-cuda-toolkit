@@ -1,8 +1,6 @@
 package cudart
 
 /*
-#cgo pkg-config: cudart-12.1
-
 #include <cuda_runtime_api.h>
 */
 import "C"

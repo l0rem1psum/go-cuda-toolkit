@@ -1,3 +1,3 @@
 module github.com/l0rem1psum/go-cuda
 
-go 1.21.3
+go 1.21
