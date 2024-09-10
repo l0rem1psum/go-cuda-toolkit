@@ -2573,3 +2573,67 @@ func YCbCr444ToBGR_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep int, pDst unsafe.
 }
 
 // ColorToGray Conversion
+
+// ColorDebayer
+
+// NppStatus nppiCFAToRGB_8u_C1C3R(const Npp8u * pSrc, int nSrcStep, NppiSize oSrcSize, NppiRect oSrcROI, Npp8u * pDst, int nDstStep, NppiBayerGridPosition eGrid, NppiInterpolationMode eInterpolation);
+func CFAToRGB_8u_C1C3R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, eGrid BayerGridPosition, eInterpolation InterpolationMode) error {
+	status := C.nppiCFAToRGB_8u_C1C3R(
+		(*C.uchar)(pSrc),
+		C.int(nSrcStep),
+		oSrcSize.asC(),
+		oSrcROI.asC(),
+		(*C.uchar)(pDst),
+		C.int(nDstStep),
+		C.NppiBayerGridPosition(eGrid),
+		C.NppiInterpolationMode(eInterpolation),
+	)
+	return internal.StatusToGoError(int(status))
+}
+
+// NppStatus nppiCFAToRGBA_8u_C1AC4R(const Npp8u * pSrc, int nSrcStep, NppiSize oSrcSize, NppiRect oSrcROI, Npp8u * pDst, int nDstStep, NppiBayerGridPosition eGrid, NppiInterpolationMode eInterpolation, Npp8u nAlpha)
+func CFAToRGBA_8u_C1AC4R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, eGrid BayerGridPosition, eInterpolation InterpolationMode, nAlpha uint8) error {
+	status := C.nppiCFAToRGBA_8u_C1AC4R(
+		(*C.uchar)(pSrc),
+		C.int(nSrcStep),
+		oSrcSize.asC(),
+		oSrcROI.asC(),
+		(*C.uchar)(pDst),
+		C.int(nDstStep),
+		C.NppiBayerGridPosition(eGrid),
+		C.NppiInterpolationMode(eInterpolation),
+		C.Npp8u(nAlpha),
+	)
+	return internal.StatusToGoError(int(status))
+}
+
+// NppStatus nppiCFAToRGB_16u_C1C3R(const Npp16u * pSrc, int nSrcStep, NppiSize oSrcSize, NppiRect oSrcROI, Npp16u * pDst, int nDstStep, NppiBayerGridPosition eGrid, NppiInterpolationMode eInterpolation);
+func CFAToRGB_16u_C1C3R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, eGrid BayerGridPosition, eInterpolation InterpolationMode) error {
+	status := C.nppiCFAToRGB_16u_C1C3R(
+		(*C.ushort)(pSrc),
+		C.int(nSrcStep),
+		oSrcSize.asC(),
+		oSrcROI.asC(),
+		(*C.ushort)(pDst),
+		C.int(nDstStep),
+		C.NppiBayerGridPosition(eGrid),
+		C.NppiInterpolationMode(eInterpolation),
+	)
+	return internal.StatusToGoError(int(status))
+}
+
+// NppStatus nppiCFAToRGBA_16u_C1AC4R(const Npp16u * pSrc, int nSrcStep, NppiSize oSrcSize, NppiRect oSrcROI, Npp16u * pDst, int nDstStep, NppiBayerGridPosition eGrid, NppiInterpolationMode eInterpolation, Npp16u nAlpha);
+func CFAToRGBA_16u_C1AC4R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, eGrid BayerGridPosition, eInterpolation InterpolationMode, nAlpha uint16) error {
+	status := C.nppiCFAToRGBA_16u_C1AC4R(
+		(*C.ushort)(pSrc),
+		C.int(nSrcStep),
+		oSrcSize.asC(),
+		oSrcROI.asC(),
+		(*C.ushort)(pDst),
+		C.int(nDstStep),
+		C.NppiBayerGridPosition(eGrid),
+		C.NppiInterpolationMode(eInterpolation),
+		C.Npp16u(nAlpha),
+	)
+	return internal.StatusToGoError(int(status))
+}

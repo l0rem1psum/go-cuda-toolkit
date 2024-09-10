@@ -6,12 +6,45 @@ package nppi
 import "C"
 import "unsafe"
 
+type InterpolationMode int
+
+const (
+	InterpolationModeUndefined         = InterpolationMode(C.NPPI_INTER_UNDEFINED)
+	InterpolationModeNearestNeighbor   = InterpolationMode(C.NPPI_INTER_NN)
+	InterpolationModeLinear            = InterpolationMode(C.NPPI_INTER_LINEAR)
+	InterpolationModeCubic             = InterpolationMode(C.NPPI_INTER_CUBIC)
+	InterpolationModeCubic2PBSpline    = InterpolationMode(C.NPPI_INTER_CUBIC2P_BSPLINE)
+	InterpolationModeCubic2PCatmullRom = InterpolationMode(C.NPPI_INTER_CUBIC2P_CATMULLROM)
+	InterpolationModeCubic2PB05C03     = InterpolationMode(C.NPPI_INTER_CUBIC2P_B05C03)
+	InterpolationModeSuper             = InterpolationMode(C.NPPI_INTER_SUPER)
+	InterpolationModeLanczos           = InterpolationMode(C.NPPI_INTER_LANCZOS)
+	InterpolationModeLanczos3Advanced  = InterpolationMode(C.NPPI_INTER_LANCZOS3_ADVANCED)
+	InterpolationModeSmoothEdge        = InterpolationMode(C.NPPI_SMOOTH_EDGE)
+)
+
+type BayerGridPosition int
+
+const (
+	BayerGridPositionBGGR = BayerGridPosition(C.NPPI_BAYER_BGGR)
+	BayerGridPositionRGGB = BayerGridPosition(C.NPPI_BAYER_RGGB)
+	BayerGridPositionGBRG = BayerGridPosition(C.NPPI_BAYER_GBRG)
+	BayerGridPositionGRBG = BayerGridPosition(C.NPPI_BAYER_GRBG)
+)
+
 type Size struct {
 	Width, Height int
 }
 
 func (s Size) asC() C.NppiSize {
 	return C.NppiSize{width: C.int(s.Width), height: C.int(s.Height)}
+}
+
+type Rect struct {
+	X, Y, Width, Height int
+}
+
+func (r Rect) asC() C.NppiRect {
+	return C.NppiRect{x: C.int(r.X), y: C.int(r.Y), width: C.int(r.Width), height: C.int(r.Height)}
 }
 
 type ImageDescriptor struct {
