@@ -31,6 +31,10 @@ const (
 	BayerGridPositionGRBG = BayerGridPosition(C.NPPI_BAYER_GRBG)
 )
 
+type Point struct {
+	X, Y int
+}
+
 type Size struct {
 	Width, Height int
 }
