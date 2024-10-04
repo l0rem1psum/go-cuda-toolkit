@@ -4,7 +4,13 @@ package nvjpeg
 #include <nvjpeg.h>
 */
 import "C"
-import "fmt"
+
+import (
+	"fmt"
+	"unsafe"
+)
+
+const MAX_COMPONENT = 4
 
 type Status int
 
@@ -114,7 +120,21 @@ const (
 	ScaleFactor1By8 = ScaleFactor(C.NVJPEG_SCALE_1_BY_8)
 )
 
-type Image struct{ i C.nvjpegImage_t }
+type Image struct {
+	Channel [MAX_COMPONENT]unsafe.Pointer
+	Pitch   [MAX_COMPONENT]uint
+}
+
+func (i *Image) asC() *C.nvjpegImage_t {
+	var cImage C.nvjpegImage_t
+	for j := 0; j < MAX_COMPONENT; j++ {
+		if i.Channel[j] != nil {
+			cImage.channel[j] = (*C.uchar)(i.Channel[j])
+		}
+		cImage.pitch[j] = C.size_t(i.Pitch[j])
+	}
+	return &cImage
+}
 
 type Handle struct{ h C.nvjpegHandle_t }
 
@@ -197,12 +217,12 @@ func EncodeGetBufferSize(handle *Handle, encoderParams *EncoderParams, imageWidt
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncodeYUV(nvjpegHandle_t handle, nvjpegEncoderState_t encoder_state, const nvjpegEncoderParams_t encoder_params, const nvjpegImage_t *source, nvjpegChromaSubsampling_t chroma_subsampling, int image_width, int image_height, cudaStream_t stream);
 func EncodeYUV(handle *Handle, encoderState *EncoderState, encoderParams *EncoderParams, source *Image, chromaSubsampling ChromaSubsampling, imageWidth, imageHeight int) error {
-	return statusToGoError(C.nvjpegEncodeYUV(handle.h, encoderState.es, encoderParams.ep, &source.i, C.nvjpegChromaSubsampling_t(chromaSubsampling), C.int(imageWidth), C.int(imageHeight), nil))
+	return statusToGoError(C.nvjpegEncodeYUV(handle.h, encoderState.es, encoderParams.ep, source.asC(), C.nvjpegChromaSubsampling_t(chromaSubsampling), C.int(imageWidth), C.int(imageHeight), nil))
 }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncodeImage(nvjpegHandle_t handle, nvjpegEncoderState_t encoder_state, const nvjpegEncoderParams_t encoder_params, const nvjpegImage_t *source, nvjpegInputFormat_t input_format, int image_width, int image_height, cudaStream_t stream);
 func EncodeImage(handle *Handle, encoderState *EncoderState, encoderParams *EncoderParams, source *Image, inputFormat InputFormat, imageWidth, imageHeight int) error {
-	return statusToGoError(C.nvjpegEncodeImage(handle.h, encoderState.es, encoderParams.ep, &source.i, C.nvjpegInputFormat_t(inputFormat), C.int(imageWidth), C.int(imageHeight), nil))
+	return statusToGoError(C.nvjpegEncodeImage(handle.h, encoderState.es, encoderParams.ep, source.asC(), C.nvjpegInputFormat_t(inputFormat), C.int(imageWidth), C.int(imageHeight), nil))
 }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncodeRetrieveBitstreamDevice(nvjpegHandle_t handle, nvjpegEncoderState_t encoder_state, unsigned char *data, size_t *length, cudaStream_t stream);
