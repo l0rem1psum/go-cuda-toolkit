@@ -742,11 +742,12 @@ func RGBToYCbCr_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer,
 }
 
 // NppStatus nppiRGBToYCbCr_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func RGBToYCbCr_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func RGBToYCbCr_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+	pDstPtr := [3]*C.uchar{(*C.uchar)(pDst[0]), (*C.uchar)(pDst[1]), (*C.uchar)(pDst[2])}
 	status := C.nppiRGBToYCbCr_8u_AC4P3R(
 		(*C.uchar)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		(**C.uchar)(unsafe.Pointer(&pDstPtr[0])),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
