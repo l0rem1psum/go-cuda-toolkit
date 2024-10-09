@@ -16,9 +16,9 @@ import (
 // NppStatus nppiRGBToYUV_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToYUV_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYUV_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -28,9 +28,9 @@ func RGBToYUV_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiRGBToYUV_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToYUV_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYUV_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -38,11 +38,11 @@ func RGBToYUV_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 }
 
 // NppStatus nppiRGBToYUV_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func RGBToYUV_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func RGBToYUV_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYUV_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -50,11 +50,11 @@ func RGBToYUV_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 }
 
 // NppStatus nppiRGBToYUV_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func RGBToYUV_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func RGBToYUV_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYUV_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -62,11 +62,11 @@ func RGBToYUV_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, n
 }
 
 // NppStatus nppiRGBToYUV_8u_AC4P4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[4], int nDstStep, NppiSize oSizeROI);
-func RGBToYUV_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func RGBToYUV_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst [4]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYUV_8u_AC4P4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr4ToNpp8uArr4(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -76,9 +76,9 @@ func RGBToYUV_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, 
 // NppStatus nppiBGRToYUV_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func BGRToYUV_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYUV_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -88,9 +88,9 @@ func BGRToYUV_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiBGRToYUV_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func BGRToYUV_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYUV_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -98,11 +98,11 @@ func BGRToYUV_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 }
 
 // NppStatus nppiBGRToYUV_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func BGRToYUV_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToYUV_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYUV_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -110,11 +110,11 @@ func BGRToYUV_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 }
 
 // NppStatus nppiBGRToYUV_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func BGRToYUV_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToYUV_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYUV_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -122,11 +122,11 @@ func BGRToYUV_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, n
 }
 
 // NppStatus nppiBGRToYUV_8u_AC4P4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[4], int nDstStep, NppiSize oSizeROI);
-func BGRToYUV_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToYUV_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst [4]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYUV_8u_AC4P4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr4ToNpp8uArr4(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -136,9 +136,9 @@ func BGRToYUV_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, 
 // NppStatus nppiYUVToRGB_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YUVToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUVToRGB_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -148,9 +148,9 @@ func YUVToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiYUVToRGB_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YUVToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUVToRGB_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -158,11 +158,11 @@ func YUVToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 }
 
 // NppStatus nppiYUVToRGB_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YUVToRGB_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUVToRGB_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUVToRGB_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -170,11 +170,11 @@ func YUVToRGB_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 }
 
 // NppStatus nppiYUVToRGB_8u_P3C3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YUVToRGB_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUVToRGB_8u_P3C3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUVToRGB_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -230,9 +230,9 @@ func YUVToRGBBatch_8u_P3C3R_Advanced(pSrcBatchList [3]ImageDescriptor, pDstBatch
 // NppStatus nppiYUVToBGR_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YUVToBGR_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUVToBGR_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -242,9 +242,9 @@ func YUVToBGR_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiYUVToBGR_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YUVToBGR_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUVToBGR_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -252,11 +252,11 @@ func YUVToBGR_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 }
 
 // NppStatus nppiYUVToBGR_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YUVToBGR_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUVToBGR_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUVToBGR_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -264,11 +264,11 @@ func YUVToBGR_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 }
 
 // NppStatus nppiYUVToBGR_8u_P3C3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YUVToBGR_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUVToBGR_8u_P3C3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUVToBGR_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -324,9 +324,9 @@ func YUVToBGRBatch_8u_P3C3R_Advanced(pSrcBatchList [3]ImageDescriptor, pDstBatch
 // NppStatus nppiRGBToYUV422_8u_C3C2R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToYUV422_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYUV422_8u_C3C2R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -334,11 +334,11 @@ func RGBToYUV422_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer
 }
 
 // NppStatus nppiRGBToYUV422_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func RGBToYUV422_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func RGBToYUV422_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYUV422_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -346,11 +346,11 @@ func RGBToYUV422_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, 
 }
 
 // NppStatus nppiRGBToYUV422_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func RGBToYUV422_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func RGBToYUV422_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYUV422_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -360,9 +360,9 @@ func RGBToYUV422_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer
 // NppStatus nppiYUV422ToRGB_8u_C2C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YUV422ToRGB_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUV422ToRGB_8u_C2C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -370,11 +370,11 @@ func YUV422ToRGB_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer
 }
 
 // NppStatus nppiYUV422ToRGB_8u_P3R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YUV422ToRGB_8u_P3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUV422ToRGB_8u_P3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUV422ToRGB_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -382,11 +382,11 @@ func YUV422ToRGB_8u_P3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointe
 }
 
 // NppStatus nppiYUV422ToRGB_8u_P3C3R(const Npp8u* const pSrc[3], int rSrcStep[3], Npp8u* pDst, int nDstStep, NppiSize oSizeROI);
-func YUV422ToRGB_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUV422ToRGB_8u_P3C3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUV422ToRGB_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -394,11 +394,11 @@ func YUV422ToRGB_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Poin
 }
 
 // NppStatus nppiYUV422ToRGB_8u_P3AC4R(const Npp8u* const pSrc[3], int rSrcStep[3], Npp8u* pDst, int nDstStep, NppiSize oSizeROI);
-func YUV422ToRGB_8u_P3AC4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUV422ToRGB_8u_P3AC4R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUV422ToRGB_8u_P3AC4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -454,11 +454,11 @@ func YUV422ToBGRBatch_8u_P3C3R_Advanced(pSrcBatchList [3]ImageDescriptor, pDstBa
 }
 
 // NppStatus nppiRGBToYUV420_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func RGBToYUV420_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func RGBToYUV420_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYUV420_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -466,11 +466,11 @@ func RGBToYUV420_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, 
 }
 
 // NppStatus nppiRGBToYUV420_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func RGBToYUV420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func RGBToYUV420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYUV420_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -478,11 +478,11 @@ func RGBToYUV420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer
 }
 
 // NppStatus nppiYUV420ToRGB_8u_P3R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YUV420ToRGB_8u_P3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUV420ToRGB_8u_P3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUV420ToRGB_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -490,11 +490,11 @@ func YUV420ToRGB_8u_P3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointe
 }
 
 // NppStatus nppiYUV420ToRGB_8u_P3C3R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YUV420ToRGB_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUV420ToRGB_8u_P3C3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUV420ToRGB_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -502,11 +502,11 @@ func YUV420ToRGB_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Poin
 }
 
 // NppStatus nppiYUV420ToRGB_8u_P3C4R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YUV420ToRGB_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUV420ToRGB_8u_P3C4R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUV420ToRGB_8u_P3C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -514,11 +514,11 @@ func YUV420ToRGB_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Poin
 }
 
 // NppStatus nppiYUV420ToRGB_8u_P3AC4R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YUV420ToRGB_8u_P3AC4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUV420ToRGB_8u_P3AC4R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUV420ToRGB_8u_P3AC4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -550,11 +550,11 @@ func YUV420ToRGBBatch_8u_P3C3R_Advanced(pSrcBatchList [3]ImageDescriptor, pDstBa
 }
 
 // NppStatus nppiNV12ToRGB_8u_P2C3R(const Npp8u * const pSrc[2], int rSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func NV12ToRGB_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func NV12ToRGB_8u_P2C3R(pSrc [2]unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiNV12ToRGB_8u_P2C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr2ToNpp8uArr2(pSrc),
 		C.int(rSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -562,11 +562,11 @@ func NV12ToRGB_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, 
 }
 
 // NppStatus nppiNV12ToRGB_709HDTV_8u_P2C3R(const Npp8u * const pSrc[2], int rSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func NV12ToRGB_709HDTV_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func NV12ToRGB_709HDTV_8u_P2C3R(pSrc [2]unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiNV12ToRGB_709HDTV_8u_P2C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr2ToNpp8uArr2(pSrc),
 		C.int(rSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -574,11 +574,11 @@ func NV12ToRGB_709HDTV_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.P
 }
 
 // NppStatus nppiNV12ToRGB_709CSC_8u_P2C3R(const Npp8u * const pSrc[2], int rSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func NV12ToRGB_709CSC_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func NV12ToRGB_709CSC_8u_P2C3R(pSrc [2]unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiNV12ToRGB_709CSC_8u_P2C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr2ToNpp8uArr2(pSrc),
 		C.int(rSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -586,11 +586,11 @@ func NV12ToRGB_709CSC_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiNV21ToRGB_8u_P2C4R(const Npp8u * const pSrc[2], int rSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func NV21ToRGB_8u_P2C4R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func NV21ToRGB_8u_P2C4R(pSrc [2]unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiNV21ToRGB_8u_P2C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr2ToNpp8uArr2(pSrc),
 		C.int(rSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -598,11 +598,11 @@ func NV21ToRGB_8u_P2C4R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, 
 }
 
 // NppStatus nppiBGRToYUV420_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYUV420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYUV420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYUV420_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -610,11 +610,11 @@ func BGRToYUV420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointe
 }
 
 // NppStatus nppiYUV420ToBGR_8u_P3C3R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YUV420ToBGR_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUV420ToBGR_8u_P3C3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUV420ToBGR_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -622,11 +622,11 @@ func YUV420ToBGR_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Poin
 }
 
 // NppStatus nppiYUV420ToBGR_8u_P3C4R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YUV420ToBGR_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YUV420ToBGR_8u_P3C4R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYUV420ToBGR_8u_P3C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -658,11 +658,11 @@ func YUV420ToBGRBatch_8u_P3C3R_Advanced(pSrcBatchList [3]ImageDescriptor, pDstBa
 }
 
 // NppStatus nppiNV12ToBGR_8u_P2C3R(const Npp8u * const pSrc[2], int rSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func NV12ToBGR_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func NV12ToBGR_8u_P2C3R(pSrc [2]unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiNV12ToBGR_8u_P2C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr2ToNpp8uArr2(pSrc),
 		C.int(rSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -670,11 +670,11 @@ func NV12ToBGR_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, 
 }
 
 // NppStatus nppiNV12ToBGR_709HDTV_8u_P2C3R(const Npp8u * const pSrc[2], int rSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func NV12ToBGR_709HDTV_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func NV12ToBGR_709HDTV_8u_P2C3R(pSrc [2]unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiNV12ToBGR_709HDTV_8u_P2C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr2ToNpp8uArr2(pSrc),
 		C.int(rSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -682,11 +682,11 @@ func NV12ToBGR_709HDTV_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.P
 }
 
 // NppStatus nppiNV12ToBGR_709CSC_8u_P2C3R(const Npp8u * const pSrc[2], int rSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func NV12ToBGR_709CSC_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func NV12ToBGR_709CSC_8u_P2C3R(pSrc [2]unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiNV12ToBGR_709CSC_8u_P2C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr2ToNpp8uArr2(pSrc),
 		C.int(rSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -694,11 +694,11 @@ func NV12ToBGR_709CSC_8u_P2C3R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiNV21ToBGR_8u_P2C4R(const Npp8u * const pSrc[2], int rSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func NV21ToBGR_8u_P2C4R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func NV21ToBGR_8u_P2C4R(pSrc [2]unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiNV21ToBGR_8u_P2C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr2ToNpp8uArr2(pSrc),
 		C.int(rSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -708,9 +708,9 @@ func NV21ToBGR_8u_P2C4R(pSrc unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, 
 // NppStatus nppiRGBToYCbCr_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToYCbCr_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -718,11 +718,11 @@ func RGBToYCbCr_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, 
 }
 
 // NppStatus nppiRGBToYCbCr_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func RGBToYCbCr_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func RGBToYCbCr_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -730,11 +730,11 @@ func RGBToYCbCr_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, n
 }
 
 // NppStatus nppiRGBToYCbCr_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func RGBToYCbCr_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func RGBToYCbCr_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -743,11 +743,10 @@ func RGBToYCbCr_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer,
 
 // NppStatus nppiRGBToYCbCr_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
 func RGBToYCbCr_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
-	pDstPtr := [3]*C.uchar{(*C.uchar)(pDst[0]), (*C.uchar)(pDst[1]), (*C.uchar)(pDst[2])}
 	status := C.nppiRGBToYCbCr_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(unsafe.Pointer(&pDstPtr[0])),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -757,9 +756,9 @@ func RGBToYCbCr_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Poin
 // NppStatus nppiYCbCrToRGB_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YCbCrToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCrToRGB_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -769,9 +768,9 @@ func YCbCrToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, n
 // NppStatus nppiYCbCrToRGB_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YCbCrToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCrToRGB_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -779,11 +778,11 @@ func YCbCrToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, 
 }
 
 // NppStatus nppiYCbCrToRGB_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YCbCrToRGB_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCrToRGB_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCrToRGB_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -791,11 +790,11 @@ func YCbCrToRGB_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, n
 }
 
 // NppStatus nppiYCbCrToRGB_8u_P3C3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCrToRGB_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCrToRGB_8u_P3C3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCrToRGB_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -803,11 +802,11 @@ func YCbCrToRGB_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer,
 }
 
 // NppStatus nppiYCbCrToRGB_8u_P3C4R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst , int nDstStep, NppiSize oSizeROI, Npp8u nAval);
-func YCbCrToRGB_8u_P3C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
+func YCbCrToRGB_8u_P3C4R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
 	status := C.nppiYCbCrToRGB_8u_P3C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 		C.uchar(nAval),
@@ -862,11 +861,11 @@ func YCbCrToRGBBatch_8u_P3C3R_Advanced(pSrcBatchList [3]ImageDescriptor, pDstBat
 }
 
 // NppStatus nppiYCbCrToBGR_8u_P3C3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCrToBGR_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCrToBGR_8u_P3C3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCrToBGR_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -874,11 +873,11 @@ func YCbCrToBGR_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer,
 }
 
 // NppStatus nppiYCbCrToBGR_8u_P3C4R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI, Npp8u nAval);
-func YCbCrToBGR_8u_P3C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
+func YCbCrToBGR_8u_P3C4R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
 	status := C.nppiYCbCrToBGR_8u_P3C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 		C.uchar(nAval),
@@ -933,11 +932,11 @@ func YCbCrToBGRBatch_8u_P3C3R_Advanced(pSrcBatchList [3]ImageDescriptor, pDstBat
 }
 
 // NppStatus nppiYCbCrToBGR_709CSC_8u_P3C3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCrToBGR_709CSC_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCrToBGR_709CSC_8u_P3C3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCrToBGR_709CSC_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -945,11 +944,11 @@ func YCbCrToBGR_709CSC_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.P
 }
 
 // NppStatus nppiYCbCrToBGR_709CSC_8u_P3C4R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI, Npp8u nAval);
-func YCbCrToBGR_709CSC_8u_P3C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
+func YCbCrToBGR_709CSC_8u_P3C4R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
 	status := C.nppiYCbCrToBGR_709CSC_8u_P3C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 		C.uchar(nAval),
@@ -960,9 +959,9 @@ func YCbCrToBGR_709CSC_8u_P3C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.P
 // NppStatus nppiRGBToYCbCr422_8u_C3C2R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToYCbCr422_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr422_8u_C3C2R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -970,11 +969,11 @@ func RGBToYCbCr422_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiRGBToYCbCr422_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func RGBToYCbCr422_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func RGBToYCbCr422_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr422_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -982,11 +981,11 @@ func RGBToYCbCr422_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiRGBToYCbCr422_8u_P3C2R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func RGBToYCbCr422_8u_P3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func RGBToYCbCr422_8u_P3C2R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr422_8u_P3C2R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -996,9 +995,9 @@ func RGBToYCbCr422_8u_P3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 // NppStatus nppiYCbCr422ToRGB_8u_C2C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YCbCr422ToRGB_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr422ToRGB_8u_C2C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1006,11 +1005,11 @@ func YCbCr422ToRGB_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiYCbCr422ToRGB_8u_C2P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YCbCr422ToRGB_8u_C2P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr422ToRGB_8u_C2P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr422ToRGB_8u_C2P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1018,11 +1017,11 @@ func YCbCr422ToRGB_8u_C2P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiYCbCr422ToRGB_8u_P3C3R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr422ToRGB_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr422ToRGB_8u_P3C3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr422ToRGB_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1056,9 +1055,9 @@ func YCbCr422ToRGBBatch_8u_P3C3R_Advanced(pSrcBatchList [3]ImageDescriptor, pDst
 // NppStatus nppiRGBToYCrCb422_8u_C3C2R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToYCrCb422_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYCrCb422_8u_C3C2R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1066,11 +1065,11 @@ func RGBToYCrCb422_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiRGBToYCrCb422_8u_P3C2R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func RGBToYCrCb422_8u_P3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func RGBToYCrCb422_8u_P3C2R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYCrCb422_8u_P3C2R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1080,9 +1079,9 @@ func RGBToYCrCb422_8u_P3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 // NppStatus nppiYCrCb422ToRGB_8u_C2C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YCrCb422ToRGB_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCrCb422ToRGB_8u_C2C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1090,11 +1089,11 @@ func YCrCb422ToRGB_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiYCrCb422ToRGB_8u_C2P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YCrCb422ToRGB_8u_C2P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCrCb422ToRGB_8u_C2P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCrCb422ToRGB_8u_C2P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1104,9 +1103,9 @@ func YCrCb422ToRGB_8u_C2P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 // NppStatus nppiBGRToYCbCr422_8u_C3C2R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func BGRToYCbCr422_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr422_8u_C3C2R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1116,9 +1115,9 @@ func BGRToYCbCr422_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 // NppStatus nppiBGRToYCbCr422_8u_AC4C2R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func BGRToYCbCr422_8u_AC4C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr422_8u_AC4C2R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1126,11 +1125,11 @@ func BGRToYCbCr422_8u_AC4C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Poin
 }
 
 // NppStatus nppiBGRToYCbCr422_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr422_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr422_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr422_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1138,11 +1137,11 @@ func BGRToYCbCr422_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiBGRToYCbCr422_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr422_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr422_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr422_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1152,9 +1151,9 @@ func BGRToYCbCr422_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Poin
 // NppStatus nppiYCbCr422ToBGR_8u_C2C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YCbCr422ToBGR_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr422ToBGR_8u_C2C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1164,9 +1163,9 @@ func YCbCr422ToBGR_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 // NppStatus nppiYCbCr422ToBGR_8u_C2C4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI, Npp8u nAval);
 func YCbCr422ToBGR_8u_C2C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
 	status := C.nppiYCbCr422ToBGR_8u_C2C4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 		C.uchar(nAval),
@@ -1175,11 +1174,11 @@ func YCbCr422ToBGR_8u_C2C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiYCbCr422ToBGR_8u_P3C3R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr422ToBGR_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr422ToBGR_8u_P3C3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr422ToBGR_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1213,9 +1212,9 @@ func YCbCr422ToBGRBatch_8u_P3C3R_Advanced(pSrcBatchList [3]ImageDescriptor, pDst
 // NppStatus nppiRGBToCbYCr422_8u_C3C2R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToCbYCr422_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToCbYCr422_8u_C3C2R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1225,9 +1224,9 @@ func RGBToCbYCr422_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 // NppStatus nppiRGBToCbYCr422Gamma_8u_C3C2R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToCbYCr422Gamma_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToCbYCr422Gamma_8u_C3C2R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1237,9 +1236,9 @@ func RGBToCbYCr422Gamma_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.
 // NppStatus nppiCbYCr422ToRGB_8u_C2C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func CbYCr422ToRGB_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiCbYCr422ToRGB_8u_C2C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1249,9 +1248,9 @@ func CbYCr422ToRGB_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 // NppStatus nppiBGRToCbYCr422_8u_AC4C2R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func BGRToCbYCr422_8u_AC4C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToCbYCr422_8u_AC4C2R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1261,9 +1260,9 @@ func BGRToCbYCr422_8u_AC4C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Poin
 // NppStatus nppiBGRToCbYCr422_709HDTV_8u_C3C2R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func BGRToCbYCr422_709HDTV_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToCbYCr422_709HDTV_8u_C3C2R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1273,9 +1272,9 @@ func BGRToCbYCr422_709HDTV_8u_C3C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsa
 // NppStatus nppiBGRToCbYCr422_709HDTV_8u_AC4C2R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func BGRToCbYCr422_709HDTV_8u_AC4C2R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToCbYCr422_709HDTV_8u_AC4C2R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1285,9 +1284,9 @@ func BGRToCbYCr422_709HDTV_8u_AC4C2R(pSrc unsafe.Pointer, nSrcStep int, pDst uns
 // NppStatus nppiCbYCr422ToBGR_8u_C2C4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI, Npp8u nAval);
 func CbYCr422ToBGR_8u_C2C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
 	status := C.nppiCbYCr422ToBGR_8u_C2C4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 		C.uchar(nAval),
@@ -1298,9 +1297,9 @@ func CbYCr422ToBGR_8u_C2C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 // NppStatus nppiCbYCr422ToBGR_709HDTV_8u_C2C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func CbYCr422ToBGR_709HDTV_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiCbYCr422ToBGR_709HDTV_8u_C2C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1310,9 +1309,9 @@ func CbYCr422ToBGR_709HDTV_8u_C2C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsa
 // NppStatus nppiCbYCr422ToBGR_709HDTV_8u_C2C4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI, Npp8u nAval);
 func CbYCr422ToBGR_709HDTV_8u_C2C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
 	status := C.nppiCbYCr422ToBGR_709HDTV_8u_C2C4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 		C.uchar(nAval),
@@ -1321,11 +1320,11 @@ func CbYCr422ToBGR_709HDTV_8u_C2C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsa
 }
 
 // NppStatus nppiRGBToYCbCr420_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func RGBToYCbCr420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func RGBToYCbCr420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr420_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1333,11 +1332,11 @@ func RGBToYCbCr420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiYCbCr420ToRGB_8u_P3C3R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr420ToRGB_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr420ToRGB_8u_P3C3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr420ToRGB_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1369,11 +1368,11 @@ func YCbCr420ToRGBBatch_8u_P3C3R_Advanced(pSrcBatchList [3]ImageDescriptor, pDst
 }
 
 // NppStatus nppiRGBToYCrCb420_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func RGBToYCrCb420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func RGBToYCrCb420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYCrCb420_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1381,11 +1380,11 @@ func RGBToYCrCb420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Poin
 }
 
 // NppStatus nppiYCrCb420ToRGB_8u_P3C4R(const Npp8u * const pSrc[3],int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI, Npp8u nAval);
-func YCrCb420ToRGB_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
+func YCrCb420ToRGB_8u_P3C4R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
 	status := C.nppiYCrCb420ToRGB_8u_P3C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 		C.uchar(nAval),
@@ -1394,11 +1393,11 @@ func YCrCb420ToRGB_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Po
 }
 
 // NppStatus nppiBGRToYCbCr420_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr420_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1406,11 +1405,11 @@ func BGRToYCbCr420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiBGRToYCbCr420_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr420_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1418,11 +1417,11 @@ func BGRToYCbCr420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Poin
 }
 
 // NppStatus nppiBGRToYCbCr420_709CSC_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr420_709CSC_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr420_709CSC_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr420_709CSC_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1430,11 +1429,11 @@ func BGRToYCbCr420_709CSC_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsaf
 }
 
 // NppStatus nppiBGRToYCbCr420_709CSC_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr420_709CSC_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr420_709CSC_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr420_709CSC_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1442,11 +1441,11 @@ func BGRToYCbCr420_709CSC_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsa
 }
 
 // NppStatus nppiBGRToYCbCr420_709HDTV_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr420_709HDTV_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr420_709HDTV_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr420_709HDTV_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1454,11 +1453,11 @@ func BGRToYCbCr420_709HDTV_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst uns
 }
 
 // NppStatus nppiBGRToYCrCb420_709CSC_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCrCb420_709CSC_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCrCb420_709CSC_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCrCb420_709CSC_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1466,11 +1465,11 @@ func BGRToYCrCb420_709CSC_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsaf
 }
 
 // NppStatus nppiBGRToYCrCb420_709CSC_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCrCb420_709CSC_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCrCb420_709CSC_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCrCb420_709CSC_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1478,11 +1477,11 @@ func BGRToYCrCb420_709CSC_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsa
 }
 
 // NppStatus nppiYCbCr420ToBGR_8u_P3C3R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr420ToBGR_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr420ToBGR_8u_P3C3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr420ToBGR_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1490,11 +1489,11 @@ func YCbCr420ToBGR_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Po
 }
 
 // NppStatus nppiYCbCr420ToBGR_8u_P3C4R(const Npp8u * const pSrc[3], int rSrcStep[3],Npp8u * pDst, int nDstStep, NppiSize oSizeROI, Npp8u nAval);
-func YCbCr420ToBGR_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
+func YCbCr420ToBGR_8u_P3C4R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
 	status := C.nppiYCbCr420ToBGR_8u_P3C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 		C.uchar(nAval),
@@ -1527,11 +1526,11 @@ func YCbCr420ToBGRBatch_8u_P3C3R_Advanced(pSrcBatchList [3]ImageDescriptor, pDst
 }
 
 // NppStatus nppiYCbCr420ToBGR_709CSC_8u_P3C3R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr420ToBGR_709CSC_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr420ToBGR_709CSC_8u_P3C3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr420ToBGR_709CSC_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1539,11 +1538,11 @@ func YCbCr420ToBGR_709CSC_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst un
 }
 
 // NppStatus nppiYCbCr420ToBGR_709HDTV_8u_P3C4R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI, Npp8u nAval);
-func YCbCr420ToBGR_709HDTV_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
+func YCbCr420ToBGR_709HDTV_8u_P3C4R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
 	status := C.nppiYCbCr420ToBGR_709HDTV_8u_P3C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 		C.uchar(nAval),
@@ -1552,11 +1551,11 @@ func YCbCr420ToBGR_709HDTV_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst u
 }
 
 // NppStatus nppiBGRToYCrCb420_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCrCb420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCrCb420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCrCb420_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1564,11 +1563,11 @@ func BGRToYCrCb420_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiBGRToYCrCb420_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCrCb420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCrCb420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCrCb420_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1576,11 +1575,11 @@ func BGRToYCrCb420_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Poin
 }
 
 // NppStatus nppiBGRToYCbCr411_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr411_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr411_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr411_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1588,11 +1587,11 @@ func BGRToYCbCr411_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiBGRToYCbCr411_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr411_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr411_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr411_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1600,11 +1599,11 @@ func BGRToYCbCr411_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Poin
 }
 
 // NppStatus nppiRGBToYCbCr411_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func RGBToYCbCr411_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func RGBToYCbCr411_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr411_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1612,11 +1611,11 @@ func RGBToYCbCr411_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Point
 }
 
 // NppStatus nppiRGBToYCbCr411_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int rDstStep[3], NppiSize oSizeROI);
-func RGBToYCbCr411_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
+func RGBToYCbCr411_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, rDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr411_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&rDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -1624,11 +1623,11 @@ func RGBToYCbCr411_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Poin
 }
 
 // NppStatus nppiBGRToYCbCr_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func BGRToYCbCr_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToYCbCr_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1636,11 +1635,11 @@ func BGRToYCbCr_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer,
 }
 
 // NppStatus nppiBGRToYCbCr_8u_AC4P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func BGRToYCbCr_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToYCbCr_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr_8u_AC4P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1648,11 +1647,11 @@ func BGRToYCbCr_8u_AC4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer
 }
 
 // NppStatus nppiBGRToYCbCr_8u_AC4P4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[4], int nDstStep, NppiSize oSizeROI);
-func BGRToYCbCr_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToYCbCr_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst [4]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr_8u_AC4P4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr4ToNpp8uArr4(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1660,11 +1659,11 @@ func BGRToYCbCr_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer
 }
 
 // NppStatus nppiYCbCr411ToBGR_8u_P3C3R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr411ToBGR_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr411ToBGR_8u_P3C3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr411ToBGR_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1672,11 +1671,11 @@ func YCbCr411ToBGR_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Po
 }
 
 // NppStatus nppiYCbCr411ToBGR_8u_P3C4R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI, Npp8u nAval);
-func YCbCr411ToBGR_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
+func YCbCr411ToBGR_8u_P3C4R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
 	status := C.nppiYCbCr411ToBGR_8u_P3C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 		C.uchar(nAval),
@@ -1685,11 +1684,11 @@ func YCbCr411ToBGR_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Po
 }
 
 // NppStatus nppiYCbCr411ToRGB_8u_P3C3R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr411ToRGB_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr411ToRGB_8u_P3C3R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr411ToRGB_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1697,11 +1696,11 @@ func YCbCr411ToRGB_8u_P3C3R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Po
 }
 
 // NppStatus nppiYCbCr411ToRGB_8u_P3C4R(const Npp8u * const pSrc[3], int rSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI, Npp8u nAval);
-func YCbCr411ToRGB_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
+func YCbCr411ToRGB_8u_P3C4R(pSrc [3]unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nAval uint8) error {
 	status := C.nppiYCbCr411ToRGB_8u_P3C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&rSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 		C.uchar(nAval),
@@ -1712,9 +1711,9 @@ func YCbCr411ToRGB_8u_P3C4R(pSrc unsafe.Pointer, rSrcStep [3]int, pDst unsafe.Po
 // NppStatus nppiRGBToXYZ_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToXYZ_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToXYZ_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1724,9 +1723,9 @@ func RGBToXYZ_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiRGBToXYZ_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToXYZ_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToXYZ_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1736,9 +1735,9 @@ func RGBToXYZ_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 // NppStatus nppiXYZToRGB_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func XYZToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiXYZToRGB_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1748,9 +1747,9 @@ func XYZToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiXYZToRGB_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func XYZToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiXYZToRGB_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1760,9 +1759,9 @@ func XYZToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 // NppStatus nppiRGBToLUV_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToLUV_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToLUV_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1772,9 +1771,9 @@ func RGBToLUV_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiRGBToLUV_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToLUV_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToLUV_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1784,9 +1783,9 @@ func RGBToLUV_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 // NppStatus nppiLUVToRGB_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func LUVToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiLUVToRGB_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1796,9 +1795,9 @@ func LUVToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiLUVToRGB_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func LUVToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiLUVToRGB_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1808,9 +1807,9 @@ func LUVToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 // NppStatus nppiBGRToLab_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func BGRToLab_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToLab_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1820,9 +1819,9 @@ func BGRToLab_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiLabToBGR_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func LabToBGR_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiLabToBGR_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1832,9 +1831,9 @@ func LabToBGR_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiRGBToYCC_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToYCC_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYCC_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1844,9 +1843,9 @@ func RGBToYCC_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiRGBToYCC_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToYCC_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYCC_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1856,9 +1855,9 @@ func RGBToYCC_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 // NppStatus nppiYCCToRGB_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YCCToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCCToRGB_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1868,9 +1867,9 @@ func YCCToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiYCCToRGB_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func YCCToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCCToRGB_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1878,11 +1877,11 @@ func YCCToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 }
 
 // NppStatus nppiYCCKToCMYK_JPEG_601_8u_P4R(const Npp8u * pSrc[4], int nSrcStep, Npp8u * pDst[4], int nDstStep, NppiSize oSizeROI);
-func YCCKToCMYK_JPEG_601_8u_P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCCKToCMYK_JPEG_601_8u_P4R(pSrc [4]unsafe.Pointer, nSrcStep int, pDst [4]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCCKToCMYK_JPEG_601_8u_P4R(
-		(**C.uchar)(pSrc),
+		unsafeArr4ToNpp8uArr4(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr4ToNpp8uArr4(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1890,11 +1889,11 @@ func YCCKToCMYK_JPEG_601_8u_P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.P
 }
 
 // NppStatus nppiCMYKOrYCCKToRGB_JPEG_8u_P4P3R(const Npp8u * pSrc[4], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func CMYKOrYCCKToRGB_JPEG_8u_P4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func CMYKOrYCCKToRGB_JPEG_8u_P4P3R(pSrc [4]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiCMYKOrYCCKToRGB_JPEG_8u_P4P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr4ToNpp8uArr4(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1902,11 +1901,11 @@ func CMYKOrYCCKToRGB_JPEG_8u_P4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsaf
 }
 
 // NppStatus nppiCMYKOrYCCKToRGB_JPEG_8u_P4C3R(const Npp8u * pSrc[4], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func CMYKOrYCCKToRGB_JPEG_8u_P4C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func CMYKOrYCCKToRGB_JPEG_8u_P4C3R(pSrc [4]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiCMYKOrYCCKToRGB_JPEG_8u_P4C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr4ToNpp8uArr4(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1914,11 +1913,11 @@ func CMYKOrYCCKToRGB_JPEG_8u_P4C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsaf
 }
 
 // NppStatus nppiCMYKOrYCCKToBGR_JPEG_8u_P4P3R(const Npp8u * pSrc[4], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func CMYKOrYCCKToBGR_JPEG_8u_P4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func CMYKOrYCCKToBGR_JPEG_8u_P4P3R(pSrc [4]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiCMYKOrYCCKToBGR_JPEG_8u_P4P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr4ToNpp8uArr4(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1926,11 +1925,11 @@ func CMYKOrYCCKToBGR_JPEG_8u_P4P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsaf
 }
 
 // NppStatus nppiCMYKOrYCCKToBGR_JPEG_8u_P4C3R(const Npp8u * pSrc[4], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func CMYKOrYCCKToBGR_JPEG_8u_P4C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func CMYKOrYCCKToBGR_JPEG_8u_P4C3R(pSrc [4]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiCMYKOrYCCKToBGR_JPEG_8u_P4C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr4ToNpp8uArr4(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1940,9 +1939,9 @@ func CMYKOrYCCKToBGR_JPEG_8u_P4C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsaf
 // NppStatus nppiRGBToHLS_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToHLS_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToHLS_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1952,9 +1951,9 @@ func RGBToHLS_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiRGBToHLS_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToHLS_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToHLS_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1964,9 +1963,9 @@ func RGBToHLS_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 // NppStatus nppiHLSToRGB_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func HLSToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiHLSToRGB_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1976,9 +1975,9 @@ func HLSToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiHLSToRGB_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func HLSToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiHLSToRGB_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1988,9 +1987,9 @@ func HLSToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 // NppStatus nppiBGRToHLS_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func BGRToHLS_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToHLS_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -1998,11 +1997,11 @@ func BGRToHLS_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 }
 
 // NppStatus nppiBGRToHLS_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func BGRToHLS_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToHLS_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToHLS_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2010,11 +2009,11 @@ func BGRToHLS_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, n
 }
 
 // NppStatus nppiBGRToHLS_8u_AC4P4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[4], int nDstStep, NppiSize oSizeROI);
-func BGRToHLS_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToHLS_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst [4]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToHLS_8u_AC4P4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr4ToNpp8uArr4(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2022,11 +2021,11 @@ func BGRToHLS_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, 
 }
 
 // NppStatus nppiBGRToHLS_8u_P3C3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func BGRToHLS_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToHLS_8u_P3C3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToHLS_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2034,11 +2033,11 @@ func BGRToHLS_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, n
 }
 
 // NppStatus nppiBGRToHLS_8u_AP4C4R(const Npp8u * const pSrc[4], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func BGRToHLS_8u_AP4C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToHLS_8u_AP4C4R(pSrc [4]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToHLS_8u_AP4C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr4ToNpp8uArr4(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2046,11 +2045,11 @@ func BGRToHLS_8u_AP4C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, 
 }
 
 // NppStatus nppiBGRToHLS_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func BGRToHLS_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToHLS_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToHLS_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2058,11 +2057,11 @@ func BGRToHLS_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 }
 
 // NppStatus nppiBGRToHLS_8u_AP4R(const Npp8u * const pSrc[4], int nSrcStep, Npp8u * pDst[4], int nDstStep, NppiSize oSizeROI);
-func BGRToHLS_8u_AP4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToHLS_8u_AP4R(pSrc [4]unsafe.Pointer, nSrcStep int, pDst [4]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToHLS_8u_AP4R(
-		(**C.uchar)(pSrc),
+		unsafeArr4ToNpp8uArr4(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr4ToNpp8uArr4(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2070,11 +2069,11 @@ func BGRToHLS_8u_AP4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 }
 
 // NppStatus nppiHLSToBGR_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func HLSToBGR_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func HLSToBGR_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiHLSToBGR_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2082,11 +2081,11 @@ func HLSToBGR_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, n
 }
 
 // NppStatus nppiHLSToBGR_8u_AC4P4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[4], int nDstStep, NppiSize oSizeROI);
-func HLSToBGR_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func HLSToBGR_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst [4]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiHLSToBGR_8u_AC4P4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr4ToNpp8uArr4(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2094,11 +2093,11 @@ func HLSToBGR_8u_AC4P4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, 
 }
 
 // NppStatus nppiHLSToBGR_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func HLSToBGR_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func HLSToBGR_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiHLSToBGR_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2106,11 +2105,11 @@ func HLSToBGR_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 }
 
 // NppStatus nppiHLSToBGR_8u_AP4R(const Npp8u * const pSrc[4], int nSrcStep, Npp8u * pDst[4], int nDstStep, NppiSize oSizeROI);
-func HLSToBGR_8u_AP4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func HLSToBGR_8u_AP4R(pSrc [4]unsafe.Pointer, nSrcStep int, pDst [4]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiHLSToBGR_8u_AP4R(
-		(**C.uchar)(pSrc),
+		unsafeArr4ToNpp8uArr4(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr4ToNpp8uArr4(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2118,11 +2117,11 @@ func HLSToBGR_8u_AP4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 }
 
 // NppStatus nppiHLSToBGR_8u_P3C3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func HLSToBGR_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func HLSToBGR_8u_P3C3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiHLSToBGR_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2130,11 +2129,11 @@ func HLSToBGR_8u_P3C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, n
 }
 
 // NppStatus nppiHLSToBGR_8u_AP4C4R(const Npp8u * const pSrc[4], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func HLSToBGR_8u_AP4C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func HLSToBGR_8u_AP4C4R(pSrc [4]unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiHLSToBGR_8u_AP4C4R(
-		(**C.uchar)(pSrc),
+		unsafeArr4ToNpp8uArr4(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2144,9 +2143,9 @@ func HLSToBGR_8u_AP4C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, 
 // NppStatus nppiRGBToHSV_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToHSV_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToHSV_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2156,9 +2155,9 @@ func RGBToHSV_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiRGBToHSV_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func RGBToHSV_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToHSV_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2168,9 +2167,9 @@ func RGBToHSV_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 // NppStatus nppiHSVToRGB_8u_C3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func HSVToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiHSVToRGB_8u_C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2180,9 +2179,9 @@ func HSVToRGB_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDs
 // NppStatus nppiHSVToRGB_8u_AC4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
 func HSVToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiHSVToRGB_8u_AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2190,11 +2189,11 @@ func HSVToRGB_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nD
 }
 
 // NppStatus nppiRGBToYCbCr420_JPEG_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func RGBToYCbCr420_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func RGBToYCbCr420_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr420_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2202,11 +2201,11 @@ func RGBToYCbCr420_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiRGBToYCbCr422_JPEG_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func RGBToYCbCr422_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func RGBToYCbCr422_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr422_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2214,11 +2213,11 @@ func RGBToYCbCr422_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiRGBToYCbCr411_JPEG_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func RGBToYCbCr411_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func RGBToYCbCr411_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr411_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2226,11 +2225,11 @@ func RGBToYCbCr411_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiRGBToYCbCr444_JPEG_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func RGBToYCbCr444_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func RGBToYCbCr444_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr444_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2238,11 +2237,11 @@ func RGBToYCbCr444_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiBGRToYCbCr420_JPEG_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr420_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr420_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr420_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2250,11 +2249,11 @@ func BGRToYCbCr420_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiBGRToYCbCr422_JPEG_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr422_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr422_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr422_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2262,11 +2261,11 @@ func BGRToYCbCr422_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiBGRToYCbCr411_JPEG_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr411_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr411_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr411_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2274,11 +2273,11 @@ func BGRToYCbCr411_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiBGRToYCbCr444_JPEG_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func BGRToYCbCr444_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToYCbCr444_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr444_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2286,11 +2285,11 @@ func BGRToYCbCr444_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiYCbCr420ToRGB_JPEG_8u_P3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YCbCr420ToRGB_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr420ToRGB_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr420ToRGB_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2298,11 +2297,11 @@ func YCbCr420ToRGB_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe
 }
 
 // NppStatus nppiYCbCr422ToRGB_JPEG_8u_P3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YCbCr422ToRGB_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr422ToRGB_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr422ToRGB_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2310,11 +2309,11 @@ func YCbCr422ToRGB_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe
 }
 
 // NppStatus nppiYCbCr411ToRGB_JPEG_8u_P3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YCbCr411ToRGB_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr411ToRGB_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr411ToRGB_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2322,11 +2321,11 @@ func YCbCr411ToRGB_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe
 }
 
 // NppStatus nppiYCbCr444ToRGB_JPEG_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YCbCr444ToRGB_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr444ToRGB_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr444ToRGB_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2334,11 +2333,11 @@ func YCbCr444ToRGB_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiYCbCr420ToBGR_JPEG_8u_P3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YCbCr420ToBGR_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr420ToBGR_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr420ToBGR_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2346,11 +2345,11 @@ func YCbCr420ToBGR_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe
 }
 
 // NppStatus nppiYCbCr422ToBGR_JPEG_8u_P3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YCbCr422ToBGR_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr422ToBGR_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr422ToBGR_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2358,11 +2357,11 @@ func YCbCr422ToBGR_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe
 }
 
 // NppStatus nppiYCbCr411ToBGR_JPEG_8u_P3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YCbCr411ToBGR_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr411ToBGR_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr411ToBGR_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2370,11 +2369,11 @@ func YCbCr411ToBGR_JPEG_8u_P3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe
 }
 
 // NppStatus nppiYCbCr444ToBGR_JPEG_8u_P3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func YCbCr444ToBGR_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr444ToBGR_JPEG_8u_P3R(pSrc [3]unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr444ToBGR_JPEG_8u_P3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2382,11 +2381,11 @@ func YCbCr444ToBGR_JPEG_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Po
 }
 
 // NppStatus nppiRGBToYCbCr420_JPEG_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func RGBToYCbCr420_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func RGBToYCbCr420_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr420_JPEG_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2394,11 +2393,11 @@ func RGBToYCbCr420_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.
 }
 
 // NppStatus nppiRGBToYCbCr422_JPEG_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func RGBToYCbCr422_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func RGBToYCbCr422_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr422_JPEG_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2406,11 +2405,11 @@ func RGBToYCbCr422_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.
 }
 
 // NppStatus nppiRGBToYCbCr411_JPEG_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func RGBToYCbCr411_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func RGBToYCbCr411_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr411_JPEG_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2418,11 +2417,11 @@ func RGBToYCbCr411_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.
 }
 
 // NppStatus nppiRGBToYCbCr444_JPEG_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func RGBToYCbCr444_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func RGBToYCbCr444_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiRGBToYCbCr444_JPEG_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2430,11 +2429,11 @@ func RGBToYCbCr444_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.
 }
 
 // NppStatus nppiBGRToYCbCr420_JPEG_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr420_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr420_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr420_JPEG_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2442,11 +2441,11 @@ func BGRToYCbCr420_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.
 }
 
 // NppStatus nppiBGRToYCbCr422_JPEG_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr422_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr422_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr422_JPEG_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2454,11 +2453,11 @@ func BGRToYCbCr422_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.
 }
 
 // NppStatus nppiBGRToYCbCr411_JPEG_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int aDstStep[3], NppiSize oSizeROI);
-func BGRToYCbCr411_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
+func BGRToYCbCr411_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, aDstStep [3]int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr411_JPEG_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		(*C.int)(unsafe.Pointer(&aDstStep[0])),
 		oSizeROI.asC(),
 	)
@@ -2466,11 +2465,11 @@ func BGRToYCbCr411_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.
 }
 
 // NppStatus nppiBGRToYCbCr444_JPEG_8u_C3P3R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst[3], int nDstStep, NppiSize oSizeROI);
-func BGRToYCbCr444_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func BGRToYCbCr444_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst [3]unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiBGRToYCbCr444_JPEG_8u_C3P3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
-		(**C.uchar)(pDst),
+		unsafeArr3ToNpp8uArr3(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2478,11 +2477,11 @@ func BGRToYCbCr444_JPEG_8u_C3P3R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.
 }
 
 // NppStatus nppiYCbCr420ToRGB_JPEG_8u_P3C3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr420ToRGB_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr420ToRGB_JPEG_8u_P3C3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr420ToRGB_JPEG_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2490,11 +2489,11 @@ func YCbCr420ToRGB_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsa
 }
 
 // NppStatus nppiYCbCr422ToRGB_JPEG_8u_P3C3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr422ToRGB_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr422ToRGB_JPEG_8u_P3C3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr422ToRGB_JPEG_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2502,11 +2501,11 @@ func YCbCr422ToRGB_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsa
 }
 
 // NppStatus nppiYCbCr411ToRGB_JPEG_8u_P3C3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr411ToRGB_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr411ToRGB_JPEG_8u_P3C3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr411ToRGB_JPEG_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2514,11 +2513,11 @@ func YCbCr411ToRGB_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsa
 }
 
 // NppStatus nppiYCbCr444ToRGB_JPEG_8u_P3C3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr444ToRGB_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr444ToRGB_JPEG_8u_P3C3R(pSrc [3]unsafe.Pointer, aSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr444ToRGB_JPEG_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(aSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2526,11 +2525,11 @@ func YCbCr444ToRGB_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep int, pDst unsafe.
 }
 
 // NppStatus nppiYCbCr420ToBGR_JPEG_8u_P3C3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr420ToBGR_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr420ToBGR_JPEG_8u_P3C3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr420ToBGR_JPEG_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2538,11 +2537,11 @@ func YCbCr420ToBGR_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsa
 }
 
 // NppStatus nppiYCbCr422ToBGR_JPEG_8u_P3C3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr422ToBGR_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr422ToBGR_JPEG_8u_P3C3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr422ToBGR_JPEG_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2550,11 +2549,11 @@ func YCbCr422ToBGR_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsa
 }
 
 // NppStatus nppiYCbCr411ToBGR_JPEG_8u_P3C3R(const Npp8u * const pSrc[3], int aSrcStep[3], Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr411ToBGR_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr411ToBGR_JPEG_8u_P3C3R(pSrc [3]unsafe.Pointer, aSrcStep [3]int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr411ToBGR_JPEG_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		(*C.int)(unsafe.Pointer(&aSrcStep[0])),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2562,11 +2561,11 @@ func YCbCr411ToBGR_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep [3]int, pDst unsa
 }
 
 // NppStatus nppiYCbCr444ToBGR_JPEG_8u_P3C3R(const Npp8u * const pSrc[3], int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI);
-func YCbCr444ToBGR_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
+func YCbCr444ToBGR_JPEG_8u_P3C3R(pSrc [3]unsafe.Pointer, aSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size) error {
 	status := C.nppiYCbCr444ToBGR_JPEG_8u_P3C3R(
-		(**C.uchar)(pSrc),
+		unsafeArr3ToNpp8uArr3(pSrc),
 		C.int(aSrcStep),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
 	)
@@ -2580,11 +2579,11 @@ func YCbCr444ToBGR_JPEG_8u_P3C3R(pSrc unsafe.Pointer, aSrcStep int, pDst unsafe.
 // NppStatus nppiCFAToRGB_8u_C1C3R(const Npp8u * pSrc, int nSrcStep, NppiSize oSrcSize, NppiRect oSrcROI, Npp8u * pDst, int nDstStep, NppiBayerGridPosition eGrid, NppiInterpolationMode eInterpolation);
 func CFAToRGB_8u_C1C3R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, eGrid BayerGridPosition, eInterpolation InterpolationMode) error {
 	status := C.nppiCFAToRGB_8u_C1C3R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
 		oSrcSize.asC(),
 		oSrcROI.asC(),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		C.NppiBayerGridPosition(eGrid),
 		C.NppiInterpolationMode(eInterpolation),
@@ -2595,11 +2594,11 @@ func CFAToRGB_8u_C1C3R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI
 // NppStatus nppiCFAToRGBA_8u_C1AC4R(const Npp8u * pSrc, int nSrcStep, NppiSize oSrcSize, NppiRect oSrcROI, Npp8u * pDst, int nDstStep, NppiBayerGridPosition eGrid, NppiInterpolationMode eInterpolation, Npp8u nAlpha)
 func CFAToRGBA_8u_C1AC4R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, eGrid BayerGridPosition, eInterpolation InterpolationMode, nAlpha uint8) error {
 	status := C.nppiCFAToRGBA_8u_C1AC4R(
-		(*C.uchar)(pSrc),
+		(*C.Npp8u)(pSrc),
 		C.int(nSrcStep),
 		oSrcSize.asC(),
 		oSrcROI.asC(),
-		(*C.uchar)(pDst),
+		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		C.NppiBayerGridPosition(eGrid),
 		C.NppiInterpolationMode(eInterpolation),
@@ -2611,11 +2610,11 @@ func CFAToRGBA_8u_C1AC4R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcR
 // NppStatus nppiCFAToRGB_16u_C1C3R(const Npp16u * pSrc, int nSrcStep, NppiSize oSrcSize, NppiRect oSrcROI, Npp16u * pDst, int nDstStep, NppiBayerGridPosition eGrid, NppiInterpolationMode eInterpolation);
 func CFAToRGB_16u_C1C3R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, eGrid BayerGridPosition, eInterpolation InterpolationMode) error {
 	status := C.nppiCFAToRGB_16u_C1C3R(
-		(*C.ushort)(pSrc),
+		(*C.Npp16u)(pSrc),
 		C.int(nSrcStep),
 		oSrcSize.asC(),
 		oSrcROI.asC(),
-		(*C.ushort)(pDst),
+		(*C.Npp16u)(pDst),
 		C.int(nDstStep),
 		C.NppiBayerGridPosition(eGrid),
 		C.NppiInterpolationMode(eInterpolation),
@@ -2626,11 +2625,11 @@ func CFAToRGB_16u_C1C3R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcRO
 // NppStatus nppiCFAToRGBA_16u_C1AC4R(const Npp16u * pSrc, int nSrcStep, NppiSize oSrcSize, NppiRect oSrcROI, Npp16u * pDst, int nDstStep, NppiBayerGridPosition eGrid, NppiInterpolationMode eInterpolation, Npp16u nAlpha);
 func CFAToRGBA_16u_C1AC4R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, eGrid BayerGridPosition, eInterpolation InterpolationMode, nAlpha uint16) error {
 	status := C.nppiCFAToRGBA_16u_C1AC4R(
-		(*C.ushort)(pSrc),
+		(*C.Npp16u)(pSrc),
 		C.int(nSrcStep),
 		oSrcSize.asC(),
 		oSrcROI.asC(),
-		(*C.ushort)(pDst),
+		(*C.Npp16u)(pDst),
 		C.int(nDstStep),
 		C.NppiBayerGridPosition(eGrid),
 		C.NppiInterpolationMode(eInterpolation),
