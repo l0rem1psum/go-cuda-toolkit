@@ -8,6 +8,8 @@ import "C"
 import (
 	"fmt"
 	"unsafe"
+
+	"github.com/l0rem1psum/go-cuda-toolkit/cudart"
 )
 
 const MAX_COMPONENT = 4
@@ -157,9 +159,9 @@ func Destroy(handle *Handle) error {
 type EncoderState struct{ es C.nvjpegEncoderState_t }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncoderStateCreate(nvjpegHandle_t handle, nvjpegEncoderState_t *encoder_state, cudaStream_t stream);
-func EncoderStateCreate(handle *Handle) (*EncoderState, error) {
+func EncoderStateCreate(handle *Handle, cudaStream *cudart.CUDAStream) (*EncoderState, error) {
 	var encoderState C.nvjpegEncoderState_t
-	if err := statusToGoError(C.nvjpegEncoderStateCreate(handle.h, &encoderState, nil)); err != nil {
+	if err := statusToGoError(C.nvjpegEncoderStateCreate(handle.h, &encoderState, C.cudaStream_t(cudaStream.C()))); err != nil {
 		return nil, err
 	}
 	return &EncoderState{es: encoderState}, nil
@@ -173,9 +175,9 @@ func EncoderStateDestroy(encoderState *EncoderState) error {
 type EncoderParams struct{ ep C.nvjpegEncoderParams_t }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncoderParamsCreate(nvjpegHandle_t handle, nvjpegEncoderParams_t *encoder_params, cudaStream_t stream);
-func EncoderParamsCreate(handle *Handle) (*EncoderParams, error) {
+func EncoderParamsCreate(handle *Handle, cudaStream *cudart.CUDAStream) (*EncoderParams, error) {
 	var encoderParams C.nvjpegEncoderParams_t
-	if err := statusToGoError(C.nvjpegEncoderParamsCreate(handle.h, &encoderParams, nil)); err != nil {
+	if err := statusToGoError(C.nvjpegEncoderParamsCreate(handle.h, &encoderParams, C.cudaStream_t(cudaStream.C()))); err != nil {
 		return nil, err
 	}
 	return &EncoderParams{ep: encoderParams}, nil
@@ -187,23 +189,23 @@ func EncoderParamsDestroy(encoderParams *EncoderParams) error {
 }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncoderParamsSetQuality(nvjpegEncoderParams_t encoder_params, const int quality, cudaStream_t stream);
-func EncoderParamsSetQuality(encoderParams *EncoderParams, quality int) error {
-	return statusToGoError(C.nvjpegEncoderParamsSetQuality(encoderParams.ep, C.int(quality), nil))
+func EncoderParamsSetQuality(encoderParams *EncoderParams, quality int, cudaStream *cudart.CUDAStream) error {
+	return statusToGoError(C.nvjpegEncoderParamsSetQuality(encoderParams.ep, C.int(quality), C.cudaStream_t(cudaStream.C())))
 }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncoderParamsSetEncoding(nvjpegEncoderParams_t encoder_params, nvjpegJpegEncoding_t etype, cudaStream_t stream);
-func EncoderParamsSetEncoding(encoderParams *EncoderParams, etype JpegEncoding) error {
-	return statusToGoError(C.nvjpegEncoderParamsSetEncoding(encoderParams.ep, C.nvjpegJpegEncoding_t(etype), nil))
+func EncoderParamsSetEncoding(encoderParams *EncoderParams, etype JpegEncoding, cudaStream *cudart.CUDAStream) error {
+	return statusToGoError(C.nvjpegEncoderParamsSetEncoding(encoderParams.ep, C.nvjpegJpegEncoding_t(etype), C.cudaStream_t(cudaStream.C())))
 }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncoderParamsSetOptimizedHuffman(nvjpegEncoderParams_t encoder_params, const int optimized, cudaStream_t stream);
-func EncoderParamsSetOptimizedHuffman(encoderParams *EncoderParams, optimized int) error {
-	return statusToGoError(C.nvjpegEncoderParamsSetOptimizedHuffman(encoderParams.ep, C.int(optimized), nil))
+func EncoderParamsSetOptimizedHuffman(encoderParams *EncoderParams, optimized int, cudaStream *cudart.CUDAStream) error {
+	return statusToGoError(C.nvjpegEncoderParamsSetOptimizedHuffman(encoderParams.ep, C.int(optimized), C.cudaStream_t(cudaStream.C())))
 }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncoderParamsSetSamplingFactors(nvjpegEncoderParams_t encoder_params, const nvjpegChromaSubsampling_t chroma_subsampling, cudaStream_t stream);
-func EncoderParamsSetSamplingFactors(encoderParams *EncoderParams, chromaSubsampling ChromaSubsampling) error {
-	return statusToGoError(C.nvjpegEncoderParamsSetSamplingFactors(encoderParams.ep, C.nvjpegChromaSubsampling_t(chromaSubsampling), nil))
+func EncoderParamsSetSamplingFactors(encoderParams *EncoderParams, chromaSubsampling ChromaSubsampling, cudaStream *cudart.CUDAStream) error {
+	return statusToGoError(C.nvjpegEncoderParamsSetSamplingFactors(encoderParams.ep, C.nvjpegChromaSubsampling_t(chromaSubsampling), C.cudaStream_t(cudaStream.C())))
 }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncodeGetBufferSize(nvjpegHandle_t handle, const nvjpegEncoderParams_t encoder_params, int image_width, int image_height, size_t *max_stream_length);
@@ -216,17 +218,17 @@ func EncodeGetBufferSize(handle *Handle, encoderParams *EncoderParams, imageWidt
 }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncodeYUV(nvjpegHandle_t handle, nvjpegEncoderState_t encoder_state, const nvjpegEncoderParams_t encoder_params, const nvjpegImage_t *source, nvjpegChromaSubsampling_t chroma_subsampling, int image_width, int image_height, cudaStream_t stream);
-func EncodeYUV(handle *Handle, encoderState *EncoderState, encoderParams *EncoderParams, source *Image, chromaSubsampling ChromaSubsampling, imageWidth, imageHeight int) error {
-	return statusToGoError(C.nvjpegEncodeYUV(handle.h, encoderState.es, encoderParams.ep, source.asC(), C.nvjpegChromaSubsampling_t(chromaSubsampling), C.int(imageWidth), C.int(imageHeight), nil))
+func EncodeYUV(handle *Handle, encoderState *EncoderState, encoderParams *EncoderParams, source *Image, chromaSubsampling ChromaSubsampling, imageWidth, imageHeight int, cudaStream *cudart.CUDAStream) error {
+	return statusToGoError(C.nvjpegEncodeYUV(handle.h, encoderState.es, encoderParams.ep, source.asC(), C.nvjpegChromaSubsampling_t(chromaSubsampling), C.int(imageWidth), C.int(imageHeight), C.cudaStream_t(cudaStream.C())))
 }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncodeImage(nvjpegHandle_t handle, nvjpegEncoderState_t encoder_state, const nvjpegEncoderParams_t encoder_params, const nvjpegImage_t *source, nvjpegInputFormat_t input_format, int image_width, int image_height, cudaStream_t stream);
-func EncodeImage(handle *Handle, encoderState *EncoderState, encoderParams *EncoderParams, source *Image, inputFormat InputFormat, imageWidth, imageHeight int) error {
-	return statusToGoError(C.nvjpegEncodeImage(handle.h, encoderState.es, encoderParams.ep, source.asC(), C.nvjpegInputFormat_t(inputFormat), C.int(imageWidth), C.int(imageHeight), nil))
+func EncodeImage(handle *Handle, encoderState *EncoderState, encoderParams *EncoderParams, source *Image, inputFormat InputFormat, imageWidth, imageHeight int, cudaStream *cudart.CUDAStream) error {
+	return statusToGoError(C.nvjpegEncodeImage(handle.h, encoderState.es, encoderParams.ep, source.asC(), C.nvjpegInputFormat_t(inputFormat), C.int(imageWidth), C.int(imageHeight), C.cudaStream_t(cudaStream.C())))
 }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncodeRetrieveBitstreamDevice(nvjpegHandle_t handle, nvjpegEncoderState_t encoder_state, unsigned char *data, size_t *length, cudaStream_t stream);
-func EncodeRetrieveBitstreamDevice(handle *Handle, encoderState *EncoderState, data []byte) (uint, error) {
+func EncodeRetrieveBitstreamDevice(handle *Handle, encoderState *EncoderState, data []byte, cudaStream *cudart.CUDAStream) (uint, error) {
 	cLength := C.size_t(len(data))
 
 	var cData *C.uchar
@@ -234,13 +236,13 @@ func EncodeRetrieveBitstreamDevice(handle *Handle, encoderState *EncoderState, d
 		cData = (*C.uchar)(&data[0])
 	}
 
-	err := statusToGoError(C.nvjpegEncodeRetrieveBitstreamDevice(handle.h, encoderState.es, cData, &cLength, nil))
+	err := statusToGoError(C.nvjpegEncodeRetrieveBitstreamDevice(handle.h, encoderState.es, cData, &cLength, C.cudaStream_t(cudaStream.C())))
 
 	return uint(cLength), err
 }
 
 // nvjpegStatus_t NVJPEGAPI nvjpegEncodeRetrieveBitstream(nvjpegHandle_t handle, nvjpegEncoderState_t encoder_state, unsigned char *data, size_t *length, cudaStream_t stream);
-func EncodeRetrieveBitstream(handle *Handle, encoderState *EncoderState, data []byte) (uint, error) {
+func EncodeRetrieveBitstream(handle *Handle, encoderState *EncoderState, data []byte, cudaStream *cudart.CUDAStream) (uint, error) {
 	cLength := C.size_t(len(data))
 
 	var cData *C.uchar
@@ -248,7 +250,7 @@ func EncodeRetrieveBitstream(handle *Handle, encoderState *EncoderState, data []
 		cData = (*C.uchar)(&data[0])
 	}
 
-	err := statusToGoError(C.nvjpegEncodeRetrieveBitstream(handle.h, encoderState.es, cData, &cLength, nil))
+	err := statusToGoError(C.nvjpegEncodeRetrieveBitstream(handle.h, encoderState.es, cData, &cLength, C.cudaStream_t(cudaStream.C())))
 
 	return uint(cLength), err
 }

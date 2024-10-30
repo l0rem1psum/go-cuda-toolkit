@@ -8,6 +8,7 @@ import "C"
 import (
 	"unsafe"
 
+	"github.com/l0rem1psum/go-cuda-toolkit/npp"
 	"github.com/l0rem1psum/go-cuda-toolkit/npp/internal"
 )
 
@@ -677,6 +678,19 @@ func NV12ToBGR_709HDTV_8u_P2C3R(pSrc [2]unsafe.Pointer, rSrcStep int, pDst unsaf
 		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
+	)
+	return internal.StatusToGoError(int(status))
+}
+
+// NppStatus nppiNV12ToBGR_709CSC_8u_P2C3R_Ctx(const Npp8u * const pSrc[2], int rSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI, NppStreamContext nppStreamCtx);
+func NV12ToBGR_709CSC_8u_P2C3R_Ctx(pSrc [2]unsafe.Pointer, rSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, nppStreamCtx *npp.StreamContext) error {
+	status := C.nppiNV12ToBGR_709CSC_8u_P2C3R_Ctx(
+		unsafeArr2ToNpp8uArr2(pSrc),
+		C.int(rSrcStep),
+		(*C.Npp8u)(pDst),
+		C.int(nDstStep),
+		oSizeROI.asC(),
+		*(*C.NppStreamContext)(nppStreamCtx.C()),
 	)
 	return internal.StatusToGoError(int(status))
 }

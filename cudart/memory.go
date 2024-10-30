@@ -29,3 +29,7 @@ func CUDAFree(devicePtr unsafe.Pointer) error {
 func CUDAMemcpy(dst unsafe.Pointer, src unsafe.Pointer, count uint64, kind CUDAMemcpyKind) error {
 	return cudaErrorToGoError(C.cudaMemcpy(dst, src, C.size_t(count), C.enum_cudaMemcpyKind(kind)))
 }
+
+func CUDAMemcpyAsync(dst unsafe.Pointer, src unsafe.Pointer, count uint64, kind CUDAMemcpyKind, stream *CUDAStream) error {
+	return cudaErrorToGoError(C.cudaMemcpyAsync(dst, src, C.size_t(count), C.enum_cudaMemcpyKind(kind), stream.s))
+}
