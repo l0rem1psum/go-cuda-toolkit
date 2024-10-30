@@ -9,8 +9,6 @@ type CUDAStream struct {
 	s C.cudaStream_t
 }
 
-
-
 func CUDAStreamCreate() (*CUDAStream, error) {
 	var stream C.cudaStream_t
 	ce := C.cudaStreamCreate(&stream)
