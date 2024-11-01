@@ -9,10 +9,27 @@ type CUcontext struct {
 	c C.CUcontext
 }
 
+type CUctx_flags uint
+
+const (
+	CU_CTX_SCHED_AUTO           = CUctx_flags(C.CU_CTX_SCHED_AUTO)
+	CU_CTX_SCHED_SPIN           = CUctx_flags(C.CU_CTX_SCHED_SPIN)
+	CU_CTX_SCHED_YIELD          = CUctx_flags(C.CU_CTX_SCHED_YIELD)
+	CU_CTX_SCHED_BLOCKING_SYNC  = CUctx_flags(C.CU_CTX_SCHED_BLOCKING_SYNC)
+	CU_CTX_BLOCKING_SYNC        = CUctx_flags(C.CU_CTX_BLOCKING_SYNC)
+	CU_CTX_SCHED_MASK           = CUctx_flags(C.CU_CTX_SCHED_MASK)
+	CU_CTX_MAP_HOST             = CUctx_flags(C.CU_CTX_MAP_HOST)
+	CU_CTX_LMEM_RESIZE_TO_MAX   = CUctx_flags(C.CU_CTX_LMEM_RESIZE_TO_MAX)
+	CU_CTX_COREDUMP_ENABLE      = CUctx_flags(C.CU_CTX_COREDUMP_ENABLE)
+	CU_CTX_USER_COREDUMP_ENABLE = CUctx_flags(C.CU_CTX_USER_COREDUMP_ENABLE)
+	CU_CTX_SYNC_MEMOPS          = CUctx_flags(C.CU_CTX_SYNC_MEMOPS)
+	CU_CTX_FLAGS_MASK           = CUctx_flags(C.CU_CTX_FLAGS_MASK)
+)
+
 // CUresult cuCtxCreate ( CUcontext* pctx, unsigned int  flags, CUdevice dev )
-func CUCtxCreate(flags uint, dev *CUdevice) (*CUcontext, error) {
+func CUCtxCreate(flags []CUctx_flags, dev *CUdevice) (*CUcontext, error) {
 	var ctx C.CUcontext
-	err := cuResultToGoError(C.cuCtxCreate(&ctx, C.uint(flags), dev.d))
+	err := cuResultToGoError(C.cuCtxCreate(&ctx, C.uint(combineFlags(flags)), dev.d))
 	return &CUcontext{ctx}, err
 }
 
@@ -67,8 +84,8 @@ func CUCtxSetCurrent(ctx *CUcontext) error {
 }
 
 // CUresult cuCtxSetFlags ( unsigned int  flags )
-func CUCtxSetFlags(flags uint) error {
-	return cuResultToGoError(C.cuCtxSetFlags(C.uint(flags)))
+func CUCtxSetFlags(flags []CUctx_flags) error {
+	return cuResultToGoError(C.cuCtxSetFlags(C.uint(combineFlags(flags))))
 }
 
 // CUresult cuCtxSynchronize ( void )

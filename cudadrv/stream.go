@@ -9,17 +9,24 @@ type CUstream struct {
 	s C.CUstream
 }
 
+type CUstream_flags uint
+
+const (
+	CU_STREAM_DEFAULT      = CUstream_flags(C.CU_STREAM_DEFAULT)
+	CU_STREAM_NON_BLOCKING = CUstream_flags(C.CU_STREAM_NON_BLOCKING)
+)
+
 // CUresult cuStreamCreate ( CUstream* phStream, unsigned int  Flags )
-func CUStreamCreate(flags uint) (*CUstream, error) {
+func CUStreamCreate(flags []CUstream_flags) (*CUstream, error) {
 	var s C.CUstream
-	err := cuResultToGoError(C.cuStreamCreate(&s, C.uint(flags)))
+	err := cuResultToGoError(C.cuStreamCreate(&s, C.uint(combineFlags(flags))))
 	return &CUstream{s}, err
 }
 
 // CUresult cuStreamCreateWithPriority ( CUstream* phStream, unsigned int  flags, int  priority )
-func CUStreamCreateWithPriority(flags uint, priority int) (*CUstream, error) {
+func CUStreamCreateWithPriority(flags []CUstream_flags, priority int) (*CUstream, error) {
 	var s C.CUstream
-	err := cuResultToGoError(C.cuStreamCreateWithPriority(&s, C.uint(flags), C.int(priority)))
+	err := cuResultToGoError(C.cuStreamCreateWithPriority(&s, C.uint(combineFlags(flags)), C.int(priority)))
 	return &CUstream{s}, err
 }
 
