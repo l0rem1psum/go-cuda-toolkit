@@ -6,8 +6,6 @@ package npp
 import "C"
 
 import (
-	"unsafe"
-
 	"github.com/l0rem1psum/go-cuda-toolkit/cudart"
 	"github.com/l0rem1psum/go-cuda-toolkit/npp/internal"
 )
@@ -42,8 +40,4 @@ func NewStreamContext(
 		nReserved0:                         0,
 	}
 	return &StreamContext{&sc}
-}
-
-func (s *StreamContext) C() unsafe.Pointer {
-	return unsafe.Pointer(s.sc)
 }
