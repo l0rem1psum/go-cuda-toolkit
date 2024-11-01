@@ -49,13 +49,6 @@ func CUStreamGetFlags(s *CUstream) (uint, error) {
 	return uint(flags), err
 }
 
-// CUresult cuStreamGetId ( CUstream hStream, unsigned long long* streamId )
-func CUStreamGetId(s *CUstream) (uint64, error) {
-	var streamId C.ulonglong
-	err := cuResultToGoError(C.cuStreamGetId(s.s, &streamId))
-	return uint64(streamId), err
-}
-
 // CUresult cuStreamGetPriority ( CUstream hStream, int* priority )
 func CUStreamGetPriority(s *CUstream) (int, error) {
 	var priority C.int

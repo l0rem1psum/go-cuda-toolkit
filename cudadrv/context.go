@@ -12,18 +12,15 @@ type CUcontext struct {
 type CUctx_flags uint
 
 const (
-	CU_CTX_SCHED_AUTO           = CUctx_flags(C.CU_CTX_SCHED_AUTO)
-	CU_CTX_SCHED_SPIN           = CUctx_flags(C.CU_CTX_SCHED_SPIN)
-	CU_CTX_SCHED_YIELD          = CUctx_flags(C.CU_CTX_SCHED_YIELD)
-	CU_CTX_SCHED_BLOCKING_SYNC  = CUctx_flags(C.CU_CTX_SCHED_BLOCKING_SYNC)
-	CU_CTX_BLOCKING_SYNC        = CUctx_flags(C.CU_CTX_BLOCKING_SYNC)
-	CU_CTX_SCHED_MASK           = CUctx_flags(C.CU_CTX_SCHED_MASK)
-	CU_CTX_MAP_HOST             = CUctx_flags(C.CU_CTX_MAP_HOST)
-	CU_CTX_LMEM_RESIZE_TO_MAX   = CUctx_flags(C.CU_CTX_LMEM_RESIZE_TO_MAX)
-	CU_CTX_COREDUMP_ENABLE      = CUctx_flags(C.CU_CTX_COREDUMP_ENABLE)
-	CU_CTX_USER_COREDUMP_ENABLE = CUctx_flags(C.CU_CTX_USER_COREDUMP_ENABLE)
-	CU_CTX_SYNC_MEMOPS          = CUctx_flags(C.CU_CTX_SYNC_MEMOPS)
-	CU_CTX_FLAGS_MASK           = CUctx_flags(C.CU_CTX_FLAGS_MASK)
+	CU_CTX_SCHED_AUTO          = CUctx_flags(C.CU_CTX_SCHED_AUTO)
+	CU_CTX_SCHED_SPIN          = CUctx_flags(C.CU_CTX_SCHED_SPIN)
+	CU_CTX_SCHED_YIELD         = CUctx_flags(C.CU_CTX_SCHED_YIELD)
+	CU_CTX_SCHED_BLOCKING_SYNC = CUctx_flags(C.CU_CTX_SCHED_BLOCKING_SYNC)
+	CU_CTX_BLOCKING_SYNC       = CUctx_flags(C.CU_CTX_BLOCKING_SYNC)
+	CU_CTX_SCHED_MASK          = CUctx_flags(C.CU_CTX_SCHED_MASK)
+	CU_CTX_MAP_HOST            = CUctx_flags(C.CU_CTX_MAP_HOST)
+	CU_CTX_LMEM_RESIZE_TO_MAX  = CUctx_flags(C.CU_CTX_LMEM_RESIZE_TO_MAX)
+	CU_CTX_FLAGS_MASK          = CUctx_flags(C.CU_CTX_FLAGS_MASK)
 )
 
 // CUresult cuCtxCreate ( CUcontext* pctx, unsigned int  flags, CUdevice dev )
@@ -59,13 +56,6 @@ func CUCtxGetFlags() (uint, error) {
 	return uint(flags), err
 }
 
-// CUresult cuCtxGetId ( CUcontext ctx, unsigned long long* ctxId )
-func CUCtxGetId(ctx *CUcontext) (uint64, error) {
-	var ctxId C.ulonglong
-	err := cuResultToGoError(C.cuCtxGetId(ctx.c, &ctxId))
-	return uint64(ctxId), err
-}
-
 // CUresult cuCtxPopCurrent ( CUcontext* pctx )
 func CUCtxPopCurrent() (*CUcontext, error) {
 	var ctx C.CUcontext
@@ -81,11 +71,6 @@ func CUCtxPushCurrent(ctx *CUcontext) error {
 // CUresult cuCtxSetCurrent ( CUcontext ctx )
 func CUCtxSetCurrent(ctx *CUcontext) error {
 	return cuResultToGoError(C.cuCtxSetCurrent(ctx.c))
-}
-
-// CUresult cuCtxSetFlags ( unsigned int  flags )
-func CUCtxSetFlags(flags []CUctx_flags) error {
-	return cuResultToGoError(C.cuCtxSetFlags(C.uint(combineFlags(flags))))
 }
 
 // CUresult cuCtxSynchronize ( void )
