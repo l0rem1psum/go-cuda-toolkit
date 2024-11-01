@@ -19,12 +19,6 @@ func CUDAStreamDestroy(stream *CUDAStream) error {
 	return cudaErrorToGoError(C.cudaStreamDestroy(stream.s))
 }
 
-func CUDAStreamGetID(stream *CUDAStream) (uint64, error) {
-	var id C.ulonglong
-	ce := C.cudaStreamGetId(stream.s, &id)
-	return uint64(id), cudaErrorToGoError(ce)
-}
-
 func CUDAStreamSynchronize(stream *CUDAStream) error {
 	return cudaErrorToGoError(C.cudaStreamSynchronize(stream.s))
 }
