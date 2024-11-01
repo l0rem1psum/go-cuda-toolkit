@@ -20,3 +20,11 @@ func CUDAGetDeviceCount() (int, error) {
 func CUDASetDevice(device int) error {
 	return cudaErrorToGoError(C.cudaSetDevice(C.int(device)))
 }
+
+func CUDADeviceReset() error {
+	return cudaErrorToGoError(C.cudaDeviceReset())
+}
+
+func CUDADeviceSynchronize() error {
+	return cudaErrorToGoError(C.cudaDeviceSynchronize())
+}
