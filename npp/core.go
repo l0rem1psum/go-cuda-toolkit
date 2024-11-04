@@ -36,7 +36,17 @@ func GetStream() *cudart.CUDAStream {
 func GetStreamContext() (*StreamContext, error) {
 	var sc C.NppStreamContext
 	status := C.nppGetStreamContext(&sc)
-	return &StreamContext{&sc}, internal.StatusToGoError(int(status))
+	return &StreamContext{
+		Stream:                            cudart.NewCUDAStreamFromC(unsafe.Pointer(sc.hStream)),
+		CudaDeviceId:                      int(sc.nCudaDeviceId),
+		MultiProcessorCount:               int(sc.nMultiProcessorCount),
+		MaxThreadsPerMultiProcessor:       int(sc.nMaxThreadsPerMultiProcessor),
+		MaxThreadsPerBlock:                int(sc.nMaxThreadsPerBlock),
+		SharedMemPerBlock:                 uint64(sc.nSharedMemPerBlock),
+		CudaDevAttrComputeCapabilityMajor: int(sc.nCudaDevAttrComputeCapabilityMajor),
+		CudaDevAttrComputeCapabilityMinor: int(sc.nCudaDevAttrComputeCapabilityMinor),
+		StreamFlags:                       uint(sc.nStreamFlags),
+	}, internal.StatusToGoError(int(status))
 }
 
 // unsigned int nppGetStreamNumSMs(void);

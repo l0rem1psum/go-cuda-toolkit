@@ -13,31 +13,27 @@ import (
 type Status = internal.Status
 
 type StreamContext struct {
-	sc *C.NppStreamContext
+	Stream                            *cudart.CUDAStream
+	CudaDeviceId                      int
+	MultiProcessorCount               int
+	MaxThreadsPerMultiProcessor       int
+	MaxThreadsPerBlock                int
+	SharedMemPerBlock                 uint64
+	CudaDevAttrComputeCapabilityMajor int
+	CudaDevAttrComputeCapabilityMinor int
+	StreamFlags                       uint
 }
 
-func NewStreamContext(
-	stream *cudart.CUDAStream,
-	cudaDeviceId int,
-	multiProcessorCount int,
-	maxThreadsPerMultiProcessor int,
-	maxThreadsPerBlock int,
-	sharedMemPerBlock uint64,
-	cudaDevAttrComputeCapabilityMajor int,
-	cudaDevAttrComputeCapabilityMinor int,
-	streamFlags uint,
-) *StreamContext {
-	sc := C.NppStreamContext{
-		hStream:                            C.cudaStream_t(stream.C()),
-		nCudaDeviceId:                      C.int(cudaDeviceId),
-		nMultiProcessorCount:               C.int(multiProcessorCount),
-		nMaxThreadsPerMultiProcessor:       C.int(maxThreadsPerMultiProcessor),
-		nMaxThreadsPerBlock:                C.int(maxThreadsPerBlock),
-		nSharedMemPerBlock:                 C.ulong(sharedMemPerBlock),
-		nCudaDevAttrComputeCapabilityMajor: C.int(cudaDevAttrComputeCapabilityMajor),
-		nCudaDevAttrComputeCapabilityMinor: C.int(cudaDevAttrComputeCapabilityMinor),
-		nStreamFlags:                       C.uint(streamFlags),
-		nReserved0:                         0,
+func (sc *StreamContext) asC() *C.NppStreamContext {
+	return &C.NppStreamContext{
+		hStream:                            C.cudaStream_t(sc.Stream.C()),
+		nCudaDeviceId:                      C.int(sc.CudaDeviceId),
+		nMultiProcessorCount:               C.int(sc.MultiProcessorCount),
+		nMaxThreadsPerMultiProcessor:       C.int(sc.MaxThreadsPerMultiProcessor),
+		nMaxThreadsPerBlock:                C.int(sc.MaxThreadsPerBlock),
+		nSharedMemPerBlock:                 C.ulong(sc.SharedMemPerBlock),
+		nCudaDevAttrComputeCapabilityMajor: C.int(sc.CudaDevAttrComputeCapabilityMajor),
+		nCudaDevAttrComputeCapabilityMinor: C.int(sc.CudaDevAttrComputeCapabilityMinor),
+		nStreamFlags:                       C.uint(sc.StreamFlags),
 	}
-	return &StreamContext{&sc}
 }

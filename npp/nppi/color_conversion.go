@@ -690,7 +690,7 @@ func NV12ToBGR_709CSC_8u_P2C3R_Ctx(pSrc [2]unsafe.Pointer, rSrcStep int, pDst un
 		(*C.Npp8u)(pDst),
 		C.int(nDstStep),
 		oSizeROI.asC(),
-		*(*C.NppStreamContext)(nppStreamCtx.C()),
+		*(*C.NppStreamContext)(nppStreamCtx.AsC()),
 	)
 	return internal.StatusToGoError(int(status))
 }

@@ -6,10 +6,6 @@ package npp
 import "C"
 import "unsafe"
 
-func NewNppStreamContextFromC(c unsafe.Pointer) *StreamContext {
-	return &StreamContext{(*C.NppStreamContext)(c)}
-}
-
-func (s *StreamContext) C() unsafe.Pointer {
-	return unsafe.Pointer(s.sc)
+func (sc *StreamContext) AsC() unsafe.Pointer {
+	return unsafe.Pointer(sc.asC())
 }
