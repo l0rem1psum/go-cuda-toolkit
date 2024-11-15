@@ -26,6 +26,13 @@ func CUDAFree(devicePtr unsafe.Pointer) error {
 	return cudaErrorToGoError(C.cudaFree(devicePtr))
 }
 
+func CUDAMemGetInfo() (uint32, uint32, error) {
+	var free C.size_t
+	var total C.size_t
+	ce := C.cudaMemGetInfo(&free, &total)
+	return uint32(free), uint32(total), cudaErrorToGoError(ce)
+}
+
 func CUDAMemcpy(dst unsafe.Pointer, src unsafe.Pointer, count uint64, kind CUDAMemcpyKind) error {
 	return cudaErrorToGoError(C.cudaMemcpy(dst, src, C.size_t(count), C.enum_cudaMemcpyKind(kind)))
 }
