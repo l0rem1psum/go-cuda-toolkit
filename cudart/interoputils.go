@@ -11,5 +11,8 @@ func NewCUDAStreamFromC(c unsafe.Pointer) *CUDAStream {
 }
 
 func (s *CUDAStream) C() unsafe.Pointer {
+	if s == nil {
+		return nil
+	}
 	return unsafe.Pointer(s.s)
 }
