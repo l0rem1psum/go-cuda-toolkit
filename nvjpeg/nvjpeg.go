@@ -26,7 +26,6 @@ const (
 	ErrArchMismatch               = Status(C.NVJPEG_STATUS_ARCH_MISMATCH)
 	ErrInternalError              = Status(C.NVJPEG_STATUS_INTERNAL_ERROR)
 	ErrImplementationNotSupported = Status(C.NVJPEG_STATUS_IMPLEMENTATION_NOT_SUPPORTED)
-	ErrIncompleteBitstream        = Status(C.NVJPEG_STATUS_INCOMPLETE_BITSTREAM)
 )
 
 func statusToGoError(status C.nvjpegStatus_t) error {
@@ -40,20 +39,6 @@ func (s Status) Error() string {
 	return fmt.Sprintf("nvjpeg error %d", s)
 }
 
-type ExifOrientation int
-
-const (
-	ExifOrientationUnknown        = ExifOrientation(C.NVJPEG_ORIENTATION_UNKNOWN)
-	ExifOrientationNormal         = ExifOrientation(C.NVJPEG_ORIENTATION_NORMAL)
-	ExifOrientationFlipHorizontal = ExifOrientation(C.NVJPEG_ORIENTATION_FLIP_HORIZONTAL)
-	ExifOrientationRotate180      = ExifOrientation(C.NVJPEG_ORIENTATION_ROTATE_180)
-	ExifOrientationFlipVertical   = ExifOrientation(C.NVJPEG_ORIENTATION_FLIP_VERTICAL)
-	ExifOrientationTranspose      = ExifOrientation(C.NVJPEG_ORIENTATION_TRANSPOSE)
-	ExifOrientationRotate90       = ExifOrientation(C.NVJPEG_ORIENTATION_ROTATE_90)
-	ExifOrientationTransverse     = ExifOrientation(C.NVJPEG_ORIENTATION_TRANSVERSE)
-	ExifOrientationRotate270      = ExifOrientation(C.NVJPEG_ORIENTATION_ROTATE_270)
-)
-
 type ChromaSubsampling int
 
 const (
@@ -64,22 +49,20 @@ const (
 	ChromaSubsampling411     = ChromaSubsampling(C.NVJPEG_CSS_411)
 	ChromaSubsampling410     = ChromaSubsampling(C.NVJPEG_CSS_410)
 	ChromaSubsamplingGray    = ChromaSubsampling(C.NVJPEG_CSS_GRAY)
-	ChromaSubsampling410V    = ChromaSubsampling(C.NVJPEG_CSS_410V)
 	ChromaSubsamplingUnknown = ChromaSubsampling(C.NVJPEG_CSS_UNKNOWN)
 )
 
 type OutputFormat int
 
 const (
-	OutputFormatUnchanged     = OutputFormat(C.NVJPEG_OUTPUT_UNCHANGED)
-	OutputFormatYUV           = OutputFormat(C.NVJPEG_OUTPUT_YUV)
-	OutputFormatY             = OutputFormat(C.NVJPEG_OUTPUT_Y)
-	OutputFormatRGB           = OutputFormat(C.NVJPEG_OUTPUT_RGB)
-	OutputFormatBGR           = OutputFormat(C.NVJPEG_OUTPUT_BGR)
-	OutputFormatRGBI          = OutputFormat(C.NVJPEG_OUTPUT_RGBI)
-	OutputFormatBGRI          = OutputFormat(C.NVJPEG_OUTPUT_BGRI)
-	OutputFormatUnchangedIU16 = OutputFormat(C.NVJPEG_OUTPUT_UNCHANGEDI_U16)
-	OutputFormatMax           = OutputFormat(C.NVJPEG_OUTPUT_FORMAT_MAX)
+	OutputFormatUnchanged = OutputFormat(C.NVJPEG_OUTPUT_UNCHANGED)
+	OutputFormatYUV       = OutputFormat(C.NVJPEG_OUTPUT_YUV)
+	OutputFormatY         = OutputFormat(C.NVJPEG_OUTPUT_Y)
+	OutputFormatRGB       = OutputFormat(C.NVJPEG_OUTPUT_RGB)
+	OutputFormatBGR       = OutputFormat(C.NVJPEG_OUTPUT_BGR)
+	OutputFormatRGBI      = OutputFormat(C.NVJPEG_OUTPUT_RGBI)
+	OutputFormatBGRI      = OutputFormat(C.NVJPEG_OUTPUT_BGRI)
+	OutputFormatMax       = OutputFormat(C.NVJPEG_OUTPUT_FORMAT_MAX)
 )
 
 type InputFormat int
@@ -94,13 +77,10 @@ const (
 type Backend int
 
 const (
-	BackendDefault         = Backend(C.NVJPEG_BACKEND_DEFAULT)
-	BackendHybrid          = Backend(C.NVJPEG_BACKEND_HYBRID)
-	BackendGPUHybrid       = Backend(C.NVJPEG_BACKEND_GPU_HYBRID)
-	BackendHardware        = Backend(C.NVJPEG_BACKEND_HARDWARE)
-	BackendGPUHybridDevice = Backend(C.NVJPEG_BACKEND_GPU_HYBRID_DEVICE)
-	BackendHardwareDevice  = Backend(C.NVJPEG_BACKEND_HARDWARE_DEVICE)
-	BackendLosslessJPEG    = Backend(C.NVJPEG_BACKEND_LOSSLESS_JPEG)
+	BackendDefault   = Backend(C.NVJPEG_BACKEND_DEFAULT)
+	BackendHybrid    = Backend(C.NVJPEG_BACKEND_HYBRID)
+	BackendGPUHybrid = Backend(C.NVJPEG_BACKEND_GPU_HYBRID)
+	BackendHardware  = Backend(C.NVJPEG_BACKEND_HARDWARE)
 )
 
 type JpegEncoding int
@@ -110,7 +90,6 @@ const (
 	JpegEncodingBaselineDCT           = JpegEncoding(C.NVJPEG_ENCODING_BASELINE_DCT)
 	JpegEncodingExtendedSequentialDCT = JpegEncoding(C.NVJPEG_ENCODING_EXTENDED_SEQUENTIAL_DCT_HUFFMAN)
 	JpegEncodingProgressiveDCTHuffman = JpegEncoding(C.NVJPEG_ENCODING_PROGRESSIVE_DCT_HUFFMAN)
-	JpegEncodingLosslessHuffman       = JpegEncoding(C.NVJPEG_ENCODING_LOSSLESS_HUFFMAN)
 )
 
 type ScaleFactor int
