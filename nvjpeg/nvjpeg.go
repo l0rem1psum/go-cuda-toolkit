@@ -26,7 +26,6 @@ const (
 	ErrArchMismatch               = Status(C.NVJPEG_STATUS_ARCH_MISMATCH)
 	ErrInternalError              = Status(C.NVJPEG_STATUS_INTERNAL_ERROR)
 	ErrImplementationNotSupported = Status(C.NVJPEG_STATUS_IMPLEMENTATION_NOT_SUPPORTED)
-	ErrIncompleteBitstream        = Status(C.NVJPEG_STATUS_INCOMPLETE_BITSTREAM)
 )
 
 func statusToGoError(status C.nvjpegStatus_t) error {
@@ -40,20 +39,6 @@ func (s Status) Error() string {
 	return fmt.Sprintf("nvjpeg error %d", s)
 }
 
-type ExifOrientation int
-
-const (
-	ExifOrientationUnknown        = ExifOrientation(C.NVJPEG_ORIENTATION_UNKNOWN)
-	ExifOrientationNormal         = ExifOrientation(C.NVJPEG_ORIENTATION_NORMAL)
-	ExifOrientationFlipHorizontal = ExifOrientation(C.NVJPEG_ORIENTATION_FLIP_HORIZONTAL)
-	ExifOrientationRotate180      = ExifOrientation(C.NVJPEG_ORIENTATION_ROTATE_180)
-	ExifOrientationFlipVertical   = ExifOrientation(C.NVJPEG_ORIENTATION_FLIP_VERTICAL)
-	ExifOrientationTranspose      = ExifOrientation(C.NVJPEG_ORIENTATION_TRANSPOSE)
-	ExifOrientationRotate90       = ExifOrientation(C.NVJPEG_ORIENTATION_ROTATE_90)
-	ExifOrientationTransverse     = ExifOrientation(C.NVJPEG_ORIENTATION_TRANSVERSE)
-	ExifOrientationRotate270      = ExifOrientation(C.NVJPEG_ORIENTATION_ROTATE_270)
-)
-
 type ChromaSubsampling int
 
 const (
@@ -64,22 +49,20 @@ const (
 	ChromaSubsampling411     = ChromaSubsampling(C.NVJPEG_CSS_411)
 	ChromaSubsampling410     = ChromaSubsampling(C.NVJPEG_CSS_410)
 	ChromaSubsamplingGray    = ChromaSubsampling(C.NVJPEG_CSS_GRAY)
-	ChromaSubsampling410V    = ChromaSubsampling(C.NVJPEG_CSS_410V)
 	ChromaSubsamplingUnknown = ChromaSubsampling(C.NVJPEG_CSS_UNKNOWN)
 )
 
 type OutputFormat int
 
 const (
-	OutputFormatUnchanged     = OutputFormat(C.NVJPEG_OUTPUT_UNCHANGED)
-	OutputFormatYUV           = OutputFormat(C.NVJPEG_OUTPUT_YUV)
-	OutputFormatY             = OutputFormat(C.NVJPEG_OUTPUT_Y)
-	OutputFormatRGB           = OutputFormat(C.NVJPEG_OUTPUT_RGB)
-	OutputFormatBGR           = OutputFormat(C.NVJPEG_OUTPUT_BGR)
-	OutputFormatRGBI          = OutputFormat(C.NVJPEG_OUTPUT_RGBI)
-	OutputFormatBGRI          = OutputFormat(C.NVJPEG_OUTPUT_BGRI)
-	OutputFormatUnchangedIU16 = OutputFormat(C.NVJPEG_OUTPUT_UNCHANGEDI_U16)
-	OutputFormatMax           = OutputFormat(C.NVJPEG_OUTPUT_FORMAT_MAX)
+	OutputFormatUnchanged = OutputFormat(C.NVJPEG_OUTPUT_UNCHANGED)
+	OutputFormatYUV       = OutputFormat(C.NVJPEG_OUTPUT_YUV)
+	OutputFormatY         = OutputFormat(C.NVJPEG_OUTPUT_Y)
+	OutputFormatRGB       = OutputFormat(C.NVJPEG_OUTPUT_RGB)
+	OutputFormatBGR       = OutputFormat(C.NVJPEG_OUTPUT_BGR)
+	OutputFormatRGBI      = OutputFormat(C.NVJPEG_OUTPUT_RGBI)
+	OutputFormatBGRI      = OutputFormat(C.NVJPEG_OUTPUT_BGRI)
+	OutputFormatMax       = OutputFormat(C.NVJPEG_OUTPUT_FORMAT_MAX)
 )
 
 type InputFormat int
@@ -94,13 +77,10 @@ const (
 type Backend int
 
 const (
-	BackendDefault         = Backend(C.NVJPEG_BACKEND_DEFAULT)
-	BackendHybrid          = Backend(C.NVJPEG_BACKEND_HYBRID)
-	BackendGPUHybrid       = Backend(C.NVJPEG_BACKEND_GPU_HYBRID)
-	BackendHardware        = Backend(C.NVJPEG_BACKEND_HARDWARE)
-	BackendGPUHybridDevice = Backend(C.NVJPEG_BACKEND_GPU_HYBRID_DEVICE)
-	BackendHardwareDevice  = Backend(C.NVJPEG_BACKEND_HARDWARE_DEVICE)
-	BackendLosslessJPEG    = Backend(C.NVJPEG_BACKEND_LOSSLESS_JPEG)
+	BackendDefault   = Backend(C.NVJPEG_BACKEND_DEFAULT)
+	BackendHybrid    = Backend(C.NVJPEG_BACKEND_HYBRID)
+	BackendGPUHybrid = Backend(C.NVJPEG_BACKEND_GPU_HYBRID)
+	BackendHardware  = Backend(C.NVJPEG_BACKEND_HARDWARE)
 )
 
 type JpegEncoding int
@@ -110,7 +90,6 @@ const (
 	JpegEncodingBaselineDCT           = JpegEncoding(C.NVJPEG_ENCODING_BASELINE_DCT)
 	JpegEncodingExtendedSequentialDCT = JpegEncoding(C.NVJPEG_ENCODING_EXTENDED_SEQUENTIAL_DCT_HUFFMAN)
 	JpegEncodingProgressiveDCTHuffman = JpegEncoding(C.NVJPEG_ENCODING_PROGRESSIVE_DCT_HUFFMAN)
-	JpegEncodingLosslessHuffman       = JpegEncoding(C.NVJPEG_ENCODING_LOSSLESS_HUFFMAN)
 )
 
 type ScaleFactor int
@@ -154,6 +133,51 @@ func CreateSimple() (*Handle, error) {
 // nvjpegStatus_t NVJPEGAPI nvjpegDestroy(nvjpegHandle_t handle);
 func Destroy(handle *Handle) error {
 	return statusToGoError(C.nvjpegDestroy(handle.h))
+}
+
+// nvjpegStatus_t NVJPEGAPI nvjpegJpegStateCreate(nvjpegHandle_t handle, nvjpegJpegState_t *jpeg_handle);
+func JpegStateCreate(handle *Handle) (*JpegState, error) {
+	var jpegState C.nvjpegJpegState_t
+	if err := statusToGoError(C.nvjpegJpegStateCreate(handle.h, &jpegState)); err != nil {
+		return nil, err
+	}
+	return &JpegState{s: jpegState}, nil
+}
+
+// nvjpegStatus_t NVJPEGAPI nvjpegJpegStateDestroy(nvjpegJpegState_t jpeg_handle);
+func JpegStateDestroy(jpegState *JpegState) error {
+	return statusToGoError(C.nvjpegJpegStateDestroy(jpegState.s))
+}
+
+// nvjpegStatus_t NVJPEGAPI nvjpegGetImageInfo(nvjpegHandle_t handle, const unsigned char *data, size_t length, int *nComponents, nvjpegChromaSubsampling_t *subsampling, int *widths, int *heights);
+func GetImageInfo(handle *Handle, data []byte) (int, ChromaSubsampling, []int, []int, error) {
+	var cData *C.uchar
+	if data != nil {
+		cData = (*C.uchar)(&data[0])
+	}
+	cLength := C.size_t(len(data))
+
+	var nComponents C.int
+	var subsampling C.nvjpegChromaSubsampling_t
+	var widths [MAX_COMPONENT]C.int
+	var heights [MAX_COMPONENT]C.int
+
+	if err := statusToGoError(C.nvjpegGetImageInfo(handle.h, cData, cLength, &nComponents, &subsampling, &widths[0], &heights[0])); err != nil {
+		return 0, 0, nil, nil, err
+	}
+
+	return int(nComponents), ChromaSubsampling(subsampling), []int{int(widths[0]), int(widths[1]), int(widths[2]), int(widths[3])}, []int{int(heights[0]), int(heights[1]), int(heights[2]), int(heights[3])}, nil
+}
+
+// nvjpegStatus_t NVJPEGAPI nvjpegDecode(nvjpegHandle_t handle, nvjpegJpegState_t jpeg_handle, const unsigned char *data, size_t length, nvjpegOutputFormat_t output_format, nvjpegImage_t *destination, cudaStream_t stream);
+func Decode(handle *Handle, jpegState *JpegState, data []byte, outputFormat OutputFormat, destination *Image, cudaStream *cudart.CUDAStream) error {
+	var cData *C.uchar
+	if data != nil {
+		cData = (*C.uchar)(&data[0])
+	}
+	cLength := C.size_t(len(data))
+
+	return statusToGoError(C.nvjpegDecode(handle.h, jpegState.s, cData, cLength, C.nvjpegOutputFormat_t(outputFormat), destination.asC(), C.cudaStream_t(cudaStream.C())))
 }
 
 type EncoderState struct{ es C.nvjpegEncoderState_t }
