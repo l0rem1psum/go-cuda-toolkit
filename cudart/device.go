@@ -4,6 +4,7 @@ package cudart
 #include <cuda_runtime_api.h>
 */
 import "C"
+import "unsafe"
 
 func CUDAGetDevice() (int, error) {
 	var device C.int
@@ -239,4 +240,16 @@ func CUDADeviceReset() error {
 
 func CUDADeviceSynchronize() error {
 	return cudaErrorToGoError(C.cudaDeviceSynchronize())
+}
+
+type CUDAIPCMemHandle struct {
+	handle C.cudaIpcMemHandle_t
+}
+
+func CUDAIPCGetMemHandle(devicePtr unsafe.Pointer) (*CUDAIPCMemHandle, error) {
+	var handle C.cudaIpcMemHandle_t
+	err := cudaErrorToGoError(C.cudaIpcGetMemHandle(&handle, devicePtr))
+	return &CUDAIPCMemHandle{
+		handle: handle,
+	}, err
 }
