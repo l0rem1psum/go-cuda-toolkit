@@ -16,3 +16,7 @@ func (s *CUDAStream) C() unsafe.Pointer {
 	}
 	return unsafe.Pointer(s.s)
 }
+
+func (h *CUDAIPCMemHandle) Handle() []byte {
+	return C.GoBytes(unsafe.Pointer(&h.handle.reserved[0]), 64) // CUDA_IPC_HANDLE_SIZE is 64 bytes
+}

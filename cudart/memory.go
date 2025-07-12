@@ -40,3 +40,7 @@ func CUDAMemcpy(dst unsafe.Pointer, src unsafe.Pointer, count uint64, kind CUDAM
 func CUDAMemcpyAsync(dst unsafe.Pointer, src unsafe.Pointer, count uint64, kind CUDAMemcpyKind, stream *CUDAStream) error {
 	return cudaErrorToGoError(C.cudaMemcpyAsync(dst, src, C.size_t(count), C.enum_cudaMemcpyKind(kind), stream.s))
 }
+
+func CUDAMemset(dst unsafe.Pointer, value int, count uint64) error {
+	return cudaErrorToGoError(C.cudaMemset(dst, C.int(value), C.size_t(count)))
+}
