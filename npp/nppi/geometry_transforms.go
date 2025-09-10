@@ -460,3 +460,101 @@ func Resize_32f_P4R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcRectRO
 	)
 	return internal.StatusToGoError(int(status))
 }
+
+// Affine Transforms
+
+// NppStatus nppiWarpAffine_8u_C1R(const Npp8u * pSrc, NppiSize oSrcSize, int nSrcStep, NppiRect oSrcROI, Npp8u * pDst, int nDstStep, NppiRect oDstROI, const double aCoeffs[2][3], int eInterpolation);
+func WarpAffine_8u_C1R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, oDstROI Rect, aCoeffs [2][3]float64, eInterpolation InterpolationMode) error {
+	status := C.nppiWarpAffine_8u_C1R(
+		(*C.Npp8u)(pSrc),
+		oSrcSize.asC(),
+		C.int(nSrcStep),
+		oSrcROI.asC(),
+		(*C.Npp8u)(pDst),
+		C.int(nDstStep),
+		oDstROI.asC(),
+		(*[3]C.double)(unsafe.Pointer(&aCoeffs[0][0])),
+		C.int(eInterpolation),
+	)
+	return internal.StatusToGoError(int(status))
+}
+
+// NppStatus nppiWarpAffine_8u_C3R(const Npp8u * pSrc, NppiSize oSrcSize, int nSrcStep, NppiRect oSrcROI, Npp8u * pDst, int nDstStep, NppiRect oDstROI, const double aCoeffs[2][3], int eInterpolation);
+func WarpAffine_8u_C3R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, oDstROI Rect, aCoeffs [2][3]float64, eInterpolation InterpolationMode) error {
+	status := C.nppiWarpAffine_8u_C3R(
+		(*C.Npp8u)(pSrc),
+		oSrcSize.asC(),
+		C.int(nSrcStep),
+		oSrcROI.asC(),
+		(*C.Npp8u)(pDst),
+		C.int(nDstStep),
+		oDstROI.asC(),
+		(*[3]C.double)(unsafe.Pointer(&aCoeffs[0][0])),
+		C.int(eInterpolation),
+	)
+	return internal.StatusToGoError(int(status))
+}
+
+// NppStatus nppiWarpAffine_8u_C4R(const Npp8u * pSrc, NppiSize oSrcSize, int nSrcStep, NppiRect oSrcROI, Npp8u * pDst, int nDstStep, NppiRect oDstROI, const double aCoeffs[2][3], int eInterpolation);
+func WarpAffine_8u_C4R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, oDstROI Rect, aCoeffs [2][3]float64, eInterpolation InterpolationMode) error {
+	status := C.nppiWarpAffine_8u_C4R(
+		(*C.Npp8u)(pSrc),
+		oSrcSize.asC(),
+		C.int(nSrcStep),
+		oSrcROI.asC(),
+		(*C.Npp8u)(pDst),
+		C.int(nDstStep),
+		oDstROI.asC(),
+		(*[3]C.double)(unsafe.Pointer(&aCoeffs[0][0])),
+		C.int(eInterpolation),
+	)
+	return internal.StatusToGoError(int(status))
+}
+
+// NppStatus nppiWarpAffine_8u_AC4R(const Npp8u * pSrc, NppiSize oSrcSize, int nSrcStep, NppiRect oSrcROI, Npp8u * pDst, int nDstStep, NppiRect oDstROI, const double aCoeffs[2][3], int eInterpolation);
+func WarpAffine_8u_AC4R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, oDstROI Rect, aCoeffs [2][3]float64, eInterpolation InterpolationMode) error {
+	status := C.nppiWarpAffine_8u_AC4R(
+		(*C.Npp8u)(pSrc),
+		oSrcSize.asC(),
+		C.int(nSrcStep),
+		oSrcROI.asC(),
+		(*C.Npp8u)(pDst),
+		C.int(nDstStep),
+		oDstROI.asC(),
+		(*[3]C.double)(unsafe.Pointer(&aCoeffs[0][0])),
+		C.int(eInterpolation),
+	)
+	return internal.StatusToGoError(int(status))
+}
+
+// NppStatus nppiWarpAffine_8u_P3R(const Npp8u * pSrc[3], NppiSize oSrcSize, int nSrcStep, NppiRect oSrcROI, Npp8u * pDst[3], int nDstStep, NppiRect oDstROI, const double aCoeffs[2][3], int eInterpolation);
+func WarpAffine_8u_P3R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, oDstROI Rect, aCoeffs [2][3]float64, eInterpolation InterpolationMode) error {
+	status := C.nppiWarpAffine_8u_P3R(
+		(**C.Npp8u)(pSrc),
+		oSrcSize.asC(),
+		C.int(nSrcStep),
+		oSrcROI.asC(),
+		(**C.Npp8u)(pDst),
+		C.int(nDstStep),
+		oDstROI.asC(),
+		(*[3]C.double)(unsafe.Pointer(&aCoeffs[0][0])),
+		C.int(eInterpolation),
+	)
+	return internal.StatusToGoError(int(status))
+}
+
+// NppStatus nppiWarpAffine_8u_P4R(const Npp8u * pSrc[4], NppiSize oSrcSize, int nSrcStep, NppiRect oSrcROI, Npp8u * pDst[4], int nDstStep, NppiRect oDstROI, const double aCoeffs[2][3], int eInterpolation);
+func WarpAffine_8u_P4R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI Rect, pDst unsafe.Pointer, nDstStep int, oDstROI Rect, aCoeffs [2][3]float64, eInterpolation InterpolationMode) error {
+	status := C.nppiWarpAffine_8u_P4R(
+		(**C.Npp8u)(pSrc),
+		oSrcSize.asC(),
+		C.int(nSrcStep),
+		oSrcROI.asC(),
+		(**C.Npp8u)(pDst),
+		C.int(nDstStep),
+		oDstROI.asC(),
+		(*[3]C.double)(unsafe.Pointer(&aCoeffs[0][0])),
+		C.int(eInterpolation),
+	)
+	return internal.StatusToGoError(int(status))
+}
