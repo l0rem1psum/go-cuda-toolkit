@@ -568,8 +568,8 @@ func WarpAffineBatchInit(pBatchList []WarpAffineBatchCXR) error {
 		batchList[i] = pBatchList[i].asC()
 	}
 	status := C.nppiWarpAffineBatchInit(
-		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&pBatchList[0])),
-		C.uint(len(pBatchList)),
+		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&batchList[0])),
+		C.uint(len(batchList)),
 	)
 	return internal.StatusToGoError(int(status))
 }
@@ -585,8 +585,8 @@ func WarpAffineBatch_8u_C1R(oSmallestSrcSize Size, oSrcRectROI Rect, oDstRectROI
 		oSrcRectROI.asC(),
 		oDstRectROI.asC(),
 		C.int(eInterpolation),
-		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&pBatchList[0])),
-		C.uint(len(pBatchList)),
+		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&batchList[0])),
+		C.uint(len(batchList)),
 	)
 	return internal.StatusToGoError(int(status))
 }
@@ -602,8 +602,8 @@ func WarpAffineBatch_8u_C3R(oSmallestSrcSize Size, oSrcRectROI Rect, oDstRectROI
 		oSrcRectROI.asC(),
 		oDstRectROI.asC(),
 		C.int(eInterpolation),
-		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&pBatchList[0])),
-		C.uint(len(pBatchList)),
+		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&batchList[0])),
+		C.uint(len(batchList)),
 	)
 	return internal.StatusToGoError(int(status))
 }
@@ -619,8 +619,8 @@ func WarpAffineBatch_8u_C4R(oSmallestSrcSize Size, oSrcRectROI Rect, oDstRectROI
 		oSrcRectROI.asC(),
 		oDstRectROI.asC(),
 		C.int(eInterpolation),
-		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&pBatchList[0])),
-		C.uint(len(pBatchList)),
+		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&batchList[0])),
+		C.uint(len(batchList)),
 	)
 	return internal.StatusToGoError(int(status))
 }
