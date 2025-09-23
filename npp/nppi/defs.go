@@ -64,3 +64,21 @@ func (id ImageDescriptor) asCPtr() *C.NppiImageDescriptor {
 		oSize: id.Size.asC(),
 	}
 }
+
+type WarpAffineBatchCXR struct {
+	Src     unsafe.Pointer
+	SrcStep int
+	Dst     unsafe.Pointer
+	DstStep int
+	Coeffs  unsafe.Pointer
+}
+
+func (wab WarpAffineBatchCXR) asC() C.NppiWarpAffineBatchCXR {
+	return C.NppiWarpAffineBatchCXR{
+		pSrc:     wab.Src,
+		nSrcStep: C.int(wab.SrcStep),
+		pDst:     wab.Dst,
+		nDstStep: C.int(wab.DstStep),
+		pCoeffs:  (*C.Npp64f)(wab.Coeffs),
+	}
+}
