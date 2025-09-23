@@ -73,12 +73,6 @@ type WarpAffineBatchCXR struct {
 	Coeffs  unsafe.Pointer
 }
 
-func (wab WarpAffineBatchCXR) asC() C.NppiWarpAffineBatchCXR {
-	return C.NppiWarpAffineBatchCXR{
-		pSrc:     wab.Src,
-		nSrcStep: C.int(wab.SrcStep),
-		pDst:     wab.Dst,
-		nDstStep: C.int(wab.DstStep),
-		pCoeffs:  (*C.Npp64f)(wab.Coeffs),
-	}
+func WarpAffineBatchCXRSliceToDevicePtr(s []WarpAffineBatchCXR) (unsafe.Pointer, error) {
+	return structSliceToDevicePtr(s)
 }

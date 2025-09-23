@@ -562,65 +562,49 @@ func WarpAffine_8u_P4R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcROI
 // Affine Transform Batch
 
 // NppStatus nppiWarpAffineBatchInit(NppiWarpAffineBatchCXR * pBatchList, unsigned int nBatchSize);
-func WarpAffineBatchInit(pBatchList []WarpAffineBatchCXR) error {
-	batchList := make([]C.NppiWarpAffineBatchCXR, len(pBatchList))
-	for i := range pBatchList {
-		batchList[i] = pBatchList[i].asC()
-	}
+func WarpAffineBatchInit(pBatchList unsafe.Pointer, nBatchSize int) error {
 	status := C.nppiWarpAffineBatchInit(
-		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&batchList[0])),
-		C.uint(len(batchList)),
+		(*C.NppiWarpAffineBatchCXR)(pBatchList),
+		C.uint(nBatchSize),
 	)
 	return internal.StatusToGoError(int(status))
 }
 
 // NppStatus nppiWarpAffineBatch_8u_C1R(NppiSize oSmallestSrcSize, NppiRect oSrcRectROI, NppiRect oDstRectROI, int eInterpolation, NppiWarpAffineBatchCXR * pBatchList, unsigned int nBatchSize);
-func WarpAffineBatch_8u_C1R(oSmallestSrcSize Size, oSrcRectROI Rect, oDstRectROI Rect, eInterpolation InterpolationMode, pBatchList []WarpAffineBatchCXR) error {
-	batchList := make([]C.NppiWarpAffineBatchCXR, len(pBatchList))
-	for i := range pBatchList {
-		batchList[i] = pBatchList[i].asC()
-	}
+func WarpAffineBatch_8u_C1R(oSmallestSrcSize Size, oSrcRectROI Rect, oDstRectROI Rect, eInterpolation InterpolationMode, pBatchList unsafe.Pointer, nBatchSize int) error {
 	status := C.nppiWarpAffineBatch_8u_C1R(
 		oSmallestSrcSize.asC(),
 		oSrcRectROI.asC(),
 		oDstRectROI.asC(),
 		C.int(eInterpolation),
-		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&batchList[0])),
-		C.uint(len(batchList)),
+		(*C.NppiWarpAffineBatchCXR)(pBatchList),
+		C.uint(nBatchSize),
 	)
 	return internal.StatusToGoError(int(status))
 }
 
 // NppStatus nppiWarpAffineBatch_8u_C3R(NppiSize oSmallestSrcSize, NppiRect oSrcRectROI, NppiRect oDstRectROI, int eInterpolation, NppiWarpAffineBatchCXR * pBatchList, unsigned int nBatchSize);
-func WarpAffineBatch_8u_C3R(oSmallestSrcSize Size, oSrcRectROI Rect, oDstRectROI Rect, eInterpolation InterpolationMode, pBatchList []WarpAffineBatchCXR) error {
-	batchList := make([]C.NppiWarpAffineBatchCXR, len(pBatchList))
-	for i := range pBatchList {
-		batchList[i] = pBatchList[i].asC()
-	}
+func WarpAffineBatch_8u_C3R(oSmallestSrcSize Size, oSrcRectROI Rect, oDstRectROI Rect, eInterpolation InterpolationMode, pBatchList unsafe.Pointer, nBatchSize int) error {
 	status := C.nppiWarpAffineBatch_8u_C3R(
 		oSmallestSrcSize.asC(),
 		oSrcRectROI.asC(),
 		oDstRectROI.asC(),
 		C.int(eInterpolation),
-		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&batchList[0])),
-		C.uint(len(batchList)),
+		(*C.NppiWarpAffineBatchCXR)(pBatchList),
+		C.uint(nBatchSize),
 	)
 	return internal.StatusToGoError(int(status))
 }
 
 // NppStatus nppiWarpAffineBatch_8u_C4R(NppiSize oSmallestSrcSize, NppiRect oSrcRectROI, NppiRect oDstRectROI, int eInterpolation, NppiWarpAffineBatchCXR * pBatchList, unsigned int nBatchSize);
-func WarpAffineBatch_8u_C4R(oSmallestSrcSize Size, oSrcRectROI Rect, oDstRectROI Rect, eInterpolation InterpolationMode, pBatchList []WarpAffineBatchCXR) error {
-	batchList := make([]C.NppiWarpAffineBatchCXR, len(pBatchList))
-	for i := range pBatchList {
-		batchList[i] = pBatchList[i].asC()
-	}
+func WarpAffineBatch_8u_C4R(oSmallestSrcSize Size, oSrcRectROI Rect, oDstRectROI Rect, eInterpolation InterpolationMode, pBatchList unsafe.Pointer, nBatchSize int) error {
 	status := C.nppiWarpAffineBatch_8u_C4R(
 		oSmallestSrcSize.asC(),
 		oSrcRectROI.asC(),
 		oDstRectROI.asC(),
 		C.int(eInterpolation),
-		(*C.NppiWarpAffineBatchCXR)(unsafe.Pointer(&batchList[0])),
-		C.uint(len(batchList)),
+		(*C.NppiWarpAffineBatchCXR)(pBatchList),
+		C.uint(nBatchSize),
 	)
 	return internal.StatusToGoError(int(status))
 }
