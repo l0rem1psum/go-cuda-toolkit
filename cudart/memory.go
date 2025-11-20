@@ -22,6 +22,12 @@ func CUDAMalloc(size uint64) (unsafe.Pointer, error) {
 	return devicePtr, cudaErrorToGoError(ce)
 }
 
+func CUDAMallocHost(size uint64) (unsafe.Pointer, error) {
+	var hostPtr unsafe.Pointer
+	ce := C.cudaMallocHost(&hostPtr, C.size_t(size))
+	return hostPtr, cudaErrorToGoError(ce)
+}
+
 func CUDAFree(devicePtr unsafe.Pointer) error {
 	return cudaErrorToGoError(C.cudaFree(devicePtr))
 }
