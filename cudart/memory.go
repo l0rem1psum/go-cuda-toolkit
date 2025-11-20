@@ -2,6 +2,13 @@ package cudart
 
 /*
 #include <cuda_runtime_api.h>
+
+enum {
+	cudaHostAllocDefaul_Go = cudaHostAllocDefault,
+	cudaHostAllocPortable_Go = cudaHostAllocPortable,
+	cudaHostAllocMapped_Go = cudaHostAllocMapped,
+	cudaHostAllocWriteCombined_Go = cudaHostAllocWriteCombined,
+};
 */
 import "C"
 import "unsafe"
@@ -15,6 +22,21 @@ const (
 	CUDAMemcpyDeviceToDevice = CUDAMemcpyKind(C.cudaMemcpyDeviceToDevice)
 	CUDAMemcpyDefault        = CUDAMemcpyKind(C.cudaMemcpyDefault)
 )
+
+type CUDAHostAllocFlag uint32
+
+const (
+	CUDAHostAllocDefault       = CUDAHostAllocFlag(C.cudaHostAllocDefaul_Go)
+	CUDAHostAllocPortable      = CUDAHostAllocFlag(C.cudaHostAllocPortable_Go)
+	CUDAHostAllocMapped        = CUDAHostAllocFlag(C.cudaHostAllocMapped_Go)
+	CUDAHostAllocWriteCombined = CUDAHostAllocFlag(C.cudaHostAllocWriteCombined_Go)
+)
+
+func CUDAHostAlloc(size uint64, flags CUDAHostAllocFlag) (unsafe.Pointer, error) {
+	var hostPtr unsafe.Pointer
+	ce := C.cudaHostAlloc(&hostPtr, C.size_t(size), C.uint(flags))
+	return hostPtr, cudaErrorToGoError(ce)
+}
 
 func CUDAMalloc(size uint64) (unsafe.Pointer, error) {
 	var devicePtr unsafe.Pointer
