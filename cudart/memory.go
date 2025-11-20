@@ -32,6 +32,10 @@ func CUDAFree(devicePtr unsafe.Pointer) error {
 	return cudaErrorToGoError(C.cudaFree(devicePtr))
 }
 
+func CUDAFreeHost(hostPtr unsafe.Pointer) error {
+	return cudaErrorToGoError(C.cudaFreeHost(hostPtr))
+}
+
 func CUDAMemGetInfo() (uint32, uint32, error) {
 	var free C.size_t
 	var total C.size_t
