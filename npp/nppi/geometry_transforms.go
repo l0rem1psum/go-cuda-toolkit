@@ -8,6 +8,7 @@ import "C"
 import (
 	"unsafe"
 
+	"github.com/l0rem1psum/go-cuda-toolkit/npp"
 	"github.com/l0rem1psum/go-cuda-toolkit/npp/internal"
 )
 
@@ -41,6 +42,23 @@ func Resize_8u_C1R(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcRectROI
 		oDstSize.asC(),
 		oDstRectROI.asC(),
 		C.int(eInterpolation),
+	)
+	return internal.StatusToGoError(int(status))
+}
+
+// NppStatus nppiResize_8u_C3R_Ctx(const Npp8u * pSrc, int nSrcStep, NppiSize oSrcSize, NppiRect oSrcRectROI, Npp8u * pDst, int nDstStep, NppiSize oDstSize, NppiRect oDstRectROI, int eInterpolation, NppStreamContext nppStreamCtx);
+func Resize_8u_C3R_Ctx(pSrc unsafe.Pointer, nSrcStep int, oSrcSize Size, oSrcRectROI Rect, pDst unsafe.Pointer, nDstStep int, oDstSize Size, oDstRectROI Rect, eInterpolation InterpolationMode, nppStreamCtx *npp.StreamContext) error {
+	status := C.nppiResize_8u_C3R_Ctx(
+		(*C.Npp8u)(pSrc),
+		C.int(nSrcStep),
+		oSrcSize.asC(),
+		oSrcRectROI.asC(),
+		(*C.Npp8u)(pDst),
+		C.int(nDstStep),
+		oDstSize.asC(),
+		oDstRectROI.asC(),
+		C.int(eInterpolation),
+		*(*C.NppStreamContext)(nppStreamCtx.AsC()),
 	)
 	return internal.StatusToGoError(int(status))
 }
