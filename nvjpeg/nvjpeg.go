@@ -7,6 +7,7 @@ import "C"
 
 import (
 	"fmt"
+	"runtime"
 	"unsafe"
 
 	"github.com/l0rem1psum/go-cuda-toolkit/cudart"
@@ -178,6 +179,68 @@ func Decode(handle *Handle, jpegState *JpegState, data []byte, outputFormat Outp
 	cLength := C.size_t(len(data))
 
 	return statusToGoError(C.nvjpegDecode(handle.h, jpegState.s, cData, cLength, C.nvjpegOutputFormat_t(outputFormat), destination.asC(), C.cudaStream_t(cudaStream.C())))
+}
+
+// nvjpegStatus_t NVJPEGAPI nvjpegDecodeBatchedInitialize(nvjpegHandle_t handle, nvjpegJpegState_t jpeg_handle, int batch_size, int max_cpu_threads, nvjpegOutputFormat_t output_format);
+func DecodeBatchedInitialize(handle *Handle, jpegState *JpegState, batchSize int, maxCPUThreads int, outputFormat OutputFormat) error {
+	return statusToGoError(C.nvjpegDecodeBatchedInitialize(handle.h, jpegState.s, C.int(batchSize), C.int(maxCPUThreads), C.nvjpegOutputFormat_t(outputFormat)))
+}
+
+// nvjpegStatus_t NVJPEGAPI nvjpegDecodeBatchedPreAllocate(nvjpegHandle_t handle, nvjpegJpegState_t jpeg_handle, int batch_size, int width, int height, nvjpegChromaSubsampling_t chroma_subsampling, nvjpegOutputFormat_t output_format);
+func DecodeBatchedPreAllocate(handle *Handle, jpegState *JpegState, batchSize int, width int, height int, chromaSubsampling ChromaSubsampling, outputFormat OutputFormat) error {
+	return statusToGoError(C.nvjpegDecodeBatchedPreAllocate(handle.h, jpegState.s, C.int(batchSize), C.int(width), C.int(height), C.nvjpegChromaSubsampling_t(chromaSubsampling), C.nvjpegOutputFormat_t(outputFormat)))
+}
+
+// nvjpegStatus_t NVJPEGAPI nvjpegDecodeBatchedParseJpegTables(nvjpegHandle_t handle, nvjpegJpegState_t jpeg_handle, const unsigned char *data, const size_t length);
+func DecodeBatchedParseJpegTables(handle *Handle, jpegState *JpegState, data []byte) error {
+	var cData *C.uchar
+	if data != nil {
+		cData = (*C.uchar)(&data[0])
+	}
+	cLength := C.size_t(len(data))
+
+	return statusToGoError(C.nvjpegDecodeBatchedParseJpegTables(handle.h, jpegState.s, cData, cLength))
+}
+
+// nvjpegStatus_t NVJPEGAPI nvjpegDecodeBatched(nvjpegHandle_t handle, nvjpegJpegState_t jpeg_handle, const unsigned char *const *data, const size_t *lengths, nvjpegImage_t *destinations, cudaStream_t stream);
+func DecodeBatched(handle *Handle, jpegState *JpegState, data [][]byte, destinations []Image, cudaStream *cudart.CUDAStream) error {
+	batchSize := len(data)
+	if batchSize == 0 {
+		return nil
+	}
+
+	var pinner runtime.Pinner
+	defer pinner.Unpin()
+
+	cDataPtrs := make([]*C.uchar, batchSize)
+	cLengths := make([]C.size_t, batchSize)
+	for i, d := range data {
+		if len(d) > 0 {
+			cDataPtrs[i] = (*C.uchar)(&d[0])
+			pinner.Pin(&d[0])
+		}
+		cLengths[i] = C.size_t(len(d))
+	}
+
+	cDestinations := make([]C.nvjpegImage_t, len(destinations))
+	for i := range destinations {
+		for j := 0; j < MAX_COMPONENT; j++ {
+			if destinations[i].Channel[j] != nil {
+				cDestinations[i].channel[j] = (*C.uchar)(destinations[i].Channel[j])
+			}
+			cDestinations[i].pitch[j] = C.size_t(destinations[i].Pitch[j])
+		}
+	}
+
+	return statusToGoError(
+		C.nvjpegDecodeBatched(
+			handle.h,
+			jpegState.s,
+			(**C.uchar)(&cDataPtrs[0]),
+			&cLengths[0],
+			&cDestinations[0],
+			C.cudaStream_t(cudaStream.C())),
+	)
 }
 
 type EncoderState struct{ es C.nvjpegEncoderState_t }
