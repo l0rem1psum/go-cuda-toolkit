@@ -46,3 +46,17 @@ func Copy_32f_C3P3R(pSrc unsafe.Pointer, nSrcStep int, aDst [3]unsafe.Pointer, n
 	)
 	return internal.StatusToGoError(int(status))
 }
+
+// NppStatus nppiSwapChannels_8u_C3C4R(const Npp8u * pSrc, int nSrcStep, Npp8u * pDst, int nDstStep, NppiSize oSizeROI, const int aDstOrder[4], const Npp8u nValue);
+func SwapChannels_8u_C3C4R(pSrc unsafe.Pointer, nSrcStep int, pDst unsafe.Pointer, nDstStep int, oSizeROI Size, aDstOrder [4]int32, nValue uint8) error {
+	status := C.nppiSwapChannels_8u_C3C4R(
+		(*C.Npp8u)(pSrc),
+		C.int(nSrcStep),
+		(*C.Npp8u)(pDst),
+		C.int(nDstStep),
+		oSizeROI.asC(),
+		(*C.int)(unsafe.Pointer(&aDstOrder[0])),
+		C.Npp8u(nValue),
+	)
+	return internal.StatusToGoError(int(status))
+}
